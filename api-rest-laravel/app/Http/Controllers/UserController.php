@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -16,7 +16,6 @@ class UserController extends Controller
 
         //Recoger los datos del usuario por post
         $json = $request->input('json',null);
-        var_dump($json);
         $params = json_decode($json); //Objeto
         $params_array = json_decode($json,true);//Array
 
@@ -28,7 +27,7 @@ class UserController extends Controller
             $validate = Validator::make($params_array,[
                 'name' => 'required|regex:/^[\pL\s\-]+$/u',
                 'surname' => 'required|regex:/^[\pL\s\-]+$/u',
-                'email' => 'required|email',
+                'email' => 'required|email|unique:users', //Comprobar si el usuario existe
                 'password' => 'required'
             ]);
 
@@ -43,13 +42,24 @@ class UserController extends Controller
             }else{
                 //Validacion Correcta
                 //Cifrar la contraseña
-                //Comprobar si el usuario existe
+                $pwd = password_hash($params->password, PASSWORD_BCRYPT, ['cost'=>4]);
+        
                 //Crear el usuario
+                $user = new User();
+                $user->name = $params_array['name'];
+                $user->surname = $params_array['surname'];
+                $user->email = $params_array['email'];
+                $user->role = 'ROLE_USER';
+                $user->password = $pwd;
+
+                //Guardar el usuario
+                $user->save();               
 
                 $data = array(
                     'status' => 'success',
                     'code' => 200,
-                    'message' => 'El usuario se ha creado correctamente'
+                    'message' => 'El usuario se ha creado correctamente',
+                    'user' => $user
                 );
             }
         }else{
