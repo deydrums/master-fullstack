@@ -9,10 +9,10 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $table = 'categorias';
+    protected $table = 'categories';
     //Relacion de uno a muchos (una categoria para muchos post)
     public function posts(){
-        return $this->hasMany('App\Post');
+        return $this->hasMany('App\Models\Post');
     }
 
 

@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     //Relacion de uno a muchos (un usuario para muchos post)
     public function posts(){
-        return $this->hasMany('App\Post');
+        return $this->hasMany('App\Models\Post');
     }
 
 }
