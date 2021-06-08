@@ -18,6 +18,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'surname',
+        'description',
         'email',
         'password',
     ];
@@ -40,4 +42,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    //Relacion de uno a muchos (un usuario para muchos post)
+    public function posts(){
+        return $this->hasMany('App\Post');
+    }
+
 }
