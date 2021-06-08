@@ -13,11 +13,16 @@ class UserController extends Controller
     public function register(Request $request){
 
         //Recoger los datos del usuario por post
+        $json = $request->input('json',null);
+        var_dump($json);
+        $params = json_decode($json); //Objeto
+        $params_array = json_decode($json,true);//Array
+        
         //Validar datos
         //Cifrar la contraseña
         //Comprobar si el usuario existe
         //Crear el usuario
-        
+
         $data = array(
             'status' => 'error',
             'code' => 404,
@@ -33,3 +38,7 @@ class UserController extends Controller
         return "Accion de login de usuario: $name $surname";
     }
 }
+
+
+
+//{"name":"David","surname":"Garcia","email":"dagarcia100@gmail.com","password":"david1234"}
