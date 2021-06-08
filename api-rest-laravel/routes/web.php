@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
+
+
+
+Route::get('/pruebas/{nombre?}', function ($nombre = null) {
+    $texto = '<h2>Texto desde una ruta ';
+    $texto.= 'Nombre: ' .$nombre. '</h2>';
+    return view ('pruebas',array('texto' => $texto));
+});
+
+Route::get('/animales','PruebasController@index');
