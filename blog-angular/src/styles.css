@@ -1,1 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
+  
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'open sans' !important;
+  }
+
+  .container {
+    padding: 60px 0;
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    overflow: hidden;
+  }
+
+  .title {
+    color: rgb(24, 51, 126);
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 60px;
+    font-weight: 550;
+  }
+
+  .container.error{
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container.error p{
+    width: 350px;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 10px;
+    background: rgba(243, 184, 184, 0.37);
+  }
+
+  .container.register{
+    width: 100%;
+    display:block;
+    align-items: center;
+    
+  }
+  .text-section{
+    text-align: center;
+  }
+
+  .derecha{
+    float:right;
+  }
