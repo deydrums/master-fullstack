@@ -113,10 +113,7 @@ class UserController extends Controller
     }
 
     public function update(Request $request){
-        //Comprobar si el usuario esta identificado
-        $token = $request->header('Authorization');
-        $jwtAuth = new \JwtAuth();
-        $checkToken = $jwtAuth->checkToken($token);
+
         //Recoger los datos por post
         $json = $request->input('json',null);
         $params_array = json_decode($json,true);
@@ -170,9 +167,9 @@ class UserController extends Controller
         $data = array(
             'code' => 400,
             'status' =>'error',
-            'message' =>'El usuario no esta identificado'
+            'message' =>'Error al subir imagen'
         );
-        return response($data,$data['code'])->header('Content-Type','text/plain');
+        return response()->json($data,$data['code']);
     }
 
 }
