@@ -54,3 +54,6 @@ Route::post('/api/user/upload','UserController@upload')->middleware(ApiAuthMiddl
 Route::get('/api/user/avatar/{filename}','UserController@getImage');
 
 Route::get('/api/user/detail/{id}','UserController@detail');
+
+//Rutas del controlador de categorias
+Route::resource('/api/category/', 'CategoryController');
