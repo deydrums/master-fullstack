@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -166,11 +168,27 @@ class UserController extends Controller
     }
 
     public function upload(Request $request){
-        $data = array(
-            'code' => 400,
-            'status' =>'error',
-            'message' =>'Error al subir imagen'
-        );
+        //Recoger los datos de la peticion
+        $image = $request->file('file0');
+        //Guardar imagen
+        if($image){
+            $image_name = time().$image->getClientOriginalName();
+            Storage::disk('images')->put($image_name, File::get($image));
+            $data = array(
+                'code'=>200,
+                'status' =>'success',
+                'image' =>$image_name
+            );
+
+        }else{
+            $data = array(
+                'code' => 400,
+                'status' =>'error',
+                'message' =>'Error al subir imagen'
+            );
+        }
+
+        //Devolver el resultado
         return response()->json($data,$data['code']);
     }
 
