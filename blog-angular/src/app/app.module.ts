@@ -11,6 +11,9 @@ import { ErrorComponent } from './components/error/error.component';
 
 import { FormsModule } from '@angular/forms';
 
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +25,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     routing,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     appRoutingProviders
