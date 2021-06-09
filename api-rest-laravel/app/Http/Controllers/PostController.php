@@ -7,6 +7,10 @@ use App\Helpers\JwtAuth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
+
 class PostController extends Controller
 {
 
@@ -201,5 +205,33 @@ class PostController extends Controller
         $token = $request->header('Authorization',null);
         $user = $jwtAuth->checkToken($token,true);
         return $user;
+    }
+
+    public function upload(Request $request){
+        //Recoger la imagen de la pericion 
+        $image = $request->file('file0');
+        //Validar la imagen 
+        $validate = Validator::make($request->all(),[
+            'file0'=> ['required','mimes:jpg,jpeg,png,gif']
+        ]);
+        //Guardar la imagen
+        if(!$image || $validate->fails()){
+            $data =[
+                'code' =>400,
+                'status' =>'error',
+                'message' =>'Error al subir la imagen'
+            ];
+        }else{
+            $image_name = time().$image->getClientOriginalName();
+            Storage::disk('images')->put($image_name, File::get($image));            
+            $data =[
+                'code' =>200,
+                'status' =>'success',
+                'image' => $image_name
+            ];
+        }
+        
+        //Devolver datos
+        return response()->json($data,$data['code']);
     }
 }
