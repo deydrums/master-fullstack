@@ -52,9 +52,7 @@ class PostController extends Controller
 
         if(!empty($params_array)){
             //Conseguir usuario identificado
-            $jwtAuth = new \JwtAuth();
-            $token = $request->header('Authorization',null);
-            $user = $jwtAuth->checkToken($token,true);
+            $user = $this->getIdentity($request);
             //Validar los datos
             $validate = Validator::make($params_array,[
                 'title' => 'required',
@@ -123,15 +121,36 @@ class PostController extends Controller
                     unset($params_array['user_id']);
                     unset($params_array['create_at']);
                     unset($params_array['user']);
-                    //Actualizar el registro(categoria)
-                    $post = Post::where('id', $id)->updateOrCreate($params_array);
+
+                    //Conseguir usuario identificado
+                    $user = $this->getIdentity($request);
+
+                    //Buscar el registro a actualizar
+                    $post = Post::where('id',$id)->where('user_id',$user->sub)->first();
+                    if(!empty($post) && is_object($post)){
+                        //Actualizar el registro(categoria)
+                        $post->update($params_array);
+                        $data = [
+                            'code' => 200,
+                            'status' =>'success',
+                            'post' => $post,
+                            'changes' => $params_array
+                        ];
+                    }else{
+                        $data = [
+                            'code' => 400,
+                            'status' =>'error',
+                            'message' => 'Este post no es de tu propiedad'
+                        ];     
+
+                    }
+                    // $where = [
+                    //     'id' => $id,
+                    //     'user_id' => $user->sub
+                    // ];
+                    // $post = Post::updateOrCreate($where,$params_array);
                     //Devolver respuesta
-                    $data = [
-                        'code' => 200,
-                        'status' =>'success',
-                        'post' => $post,
-                        'changes' => $params_array
-                    ];
+
                 }
             }else{
                 $data = [
@@ -152,8 +171,12 @@ class PostController extends Controller
     }
 
     public function destroy(request $request,$id){
+        //Conseguir usuario identificado
+        $user = $this->getIdentity($request);
+        
         //Conseguir el post
-        $post = Post::find($id);
+        $post = Post::where('id',$id)->where('user_id',$user->sub)->first();
+
         if(is_object($post)){
             $post->delete();
             $data = [
@@ -170,5 +193,13 @@ class PostController extends Controller
         }
         //Devolver resultado
         return response()->json($data,$data['code']);
+    }
+
+    private function getIdentity($request){
+        //Conseguir usuario identificado
+        $jwtAuth = new \JwtAuth();
+        $token = $request->header('Authorization',null);
+        $user = $jwtAuth->checkToken($token,true);
+        return $user;
     }
 }
