@@ -94,4 +94,61 @@ class PostController extends Controller
         //Devolver resultado
         return response()->json($data,$data['code']);
     }
+
+    public function update(request $request,$id){
+        $post = Post::find($id);
+        if(is_object($post)){
+
+            //Recoger datos por post
+            $json = $request->input('json',null);
+            $params_array = json_decode($json,true);
+
+            if(!empty($params_array)){
+                //Validar los datos
+                $validate = Validator::make($params_array,[
+                    'title' => 'required',
+                    'content' => 'required',
+                    'category_id' => 'required'
+                ]);
+
+                if($validate->fails()){
+                    $data = [
+                        'code' => 400,
+                        'status' =>'error',
+                        'message' => 'No se ha actualizado el post, faltan datos'
+                    ];
+                }else{
+                    //Quitar lo que no quero actualizar
+                    unset($params_array['id']);
+                    unset($params_array['user_id']);
+                    unset($params_array['create_at']);
+                    unset($params_array['user']);
+                    //Actualizar el registro(categoria)
+                    $post = Post::where('id', $id)->update($params_array);
+                    //Devolver respuesta
+                    $data = [
+                        'code' => 200,
+                        'status' =>'success',
+                        'category' => $params_array
+                    ];
+                }
+            }else{
+                $data = [
+                    'code' => 400,
+                    'status' =>'error',
+                    'message' => 'No se ha enviado ninguna actualizacion'
+                ];       
+            }
+        }else{
+            $data = [
+                'code' => 404,
+                'status' =>'error',
+                'message' => 'El post no existe'
+            ];          
+        }
+        //Devolver resultado
+        return response()->json($data,$data['code']);
+    }
+
+
 }
