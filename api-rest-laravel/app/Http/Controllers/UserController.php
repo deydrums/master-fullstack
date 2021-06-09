@@ -115,9 +115,11 @@ class UserController extends Controller
     public function update(Request $request){
 
         //Recoger los datos por post
+        $token = $request->header('Authorization');
+        $jwtAuth = new \JwtAuth();
         $json = $request->input('json',null);
         $params_array = json_decode($json,true);
-        if($checkToken && !empty($params_array)){
+        if(!empty($params_array)){
 
             //Sacar usuario identificado
             $user = $jwtAuth->checkToken($token,true);
@@ -157,7 +159,7 @@ class UserController extends Controller
             $data = array(
                 'code' => 400,
                 'status' =>'error',
-                'message' =>'El usuario no esta identificado'
+                'message' =>'Los datos no son validos'
             );
         }
         return response()->json($data,$data['code']);
