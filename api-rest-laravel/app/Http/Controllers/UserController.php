@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -178,7 +179,6 @@ class UserController extends Controller
 
         //Guardar imagen
         if(!$image || $validate->fails()){
-
             $data = array(
                 'code' => 400,
                 'status' =>'error',
@@ -187,7 +187,7 @@ class UserController extends Controller
 
         }else{
             $image_name = time().$image->getClientOriginalName();
-            Storage::disk('images')->put($image_name, File::get($image));
+            Storage::disk('users')->put($image_name, File::get($image));
             $data = array(
                 'code'=>200,
                 'status' =>'success',
@@ -197,6 +197,21 @@ class UserController extends Controller
 
         //Devolver el resultado
         return response()->json($data,$data['code']);
+    }
+
+    public function getImage($filename){
+        $isset = Storage::disk('users')->exists($filename);
+        if($isset){
+            $file = Storage::disk('users')->get($filename);
+            return new Response($file,200);
+        }else{
+            $data = array(
+                'code'=>200,
+                'status' =>'error',
+                'message' =>'La imagen no existe'
+            );    
+            return response()->json($data,$data['code']);
+        }
     }
 
 }
