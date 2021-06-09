@@ -124,12 +124,13 @@ class PostController extends Controller
                     unset($params_array['create_at']);
                     unset($params_array['user']);
                     //Actualizar el registro(categoria)
-                    $post = Post::where('id', $id)->update($params_array);
+                    $post = Post::where('id', $id)->updateOrCreate($params_array);
                     //Devolver respuesta
                     $data = [
                         'code' => 200,
                         'status' =>'success',
-                        'category' => $params_array
+                        'post' => $post,
+                        'changes' => $params_array
                     ];
                 }
             }else{
@@ -150,5 +151,24 @@ class PostController extends Controller
         return response()->json($data,$data['code']);
     }
 
-
+    public function destroy(request $request,$id){
+        //Conseguir el post
+        $post = Post::find($id);
+        if(is_object($post)){
+            $post->delete();
+            $data = [
+                'code' =>200,
+                'status' =>'success',
+                'post' =>$post
+            ];
+        }else{
+            $data = [
+                'code' => 404,
+                'status' =>'error',
+                'message' => 'El post no existe'
+            ];          
+        }
+        //Devolver resultado
+        return response()->json($data,$data['code']);
+    }
 }
