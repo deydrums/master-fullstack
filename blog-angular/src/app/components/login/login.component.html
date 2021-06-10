@@ -2,7 +2,12 @@
     <h2 class="title">{{page_title}}</h2>
     <p class="text-section">Identificate en la plataforma.</p>
 
-
+    <div class="alert alert-success col-md-5 m-auto" *ngIf="status === 'success'">
+        Hola de nuevo. <a [routerLink]="['/login']">Logueate aqui</a>
+    </div>
+    <div class="alert alert-danger col-md-5 m-auto" *ngIf="status === 'error'">
+        {{error}}
+    </div>
     
     <form class="col-md-5 mx-sm-auto mt-lg-5" #loginForm = "ngForm" (ngSubmit) = "onSubmit(loginForm)">
 

@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   public status!:string;
   public token:any;
   public identity:any;
+  public error!:any;
 
   constructor(
     private _userService: UserService,
@@ -63,7 +64,7 @@ export class LoginComponent implements OnInit {
       },
       error =>{
         this.status = 'error';
-        console.log(<any>error);
+        this.error = error.error.message;
       }
     );
     
