@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   public token:any;
   public identity:any;
   public error!:any;
+  public name!: string;
 
   constructor(
     private _userService: UserService,
@@ -51,7 +52,9 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('token', this.token);
                 localStorage.setItem('identity', JSON.stringify(this.identity));
                 //Redireccion a inicio
+                this.name = this.identity['name'] + ' ' + this.identity['surname'];
                 this._router.navigate(['inicio']);
+                
             },
             error =>{
               this.status = 'error';

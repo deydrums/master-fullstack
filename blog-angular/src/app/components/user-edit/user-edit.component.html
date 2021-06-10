@@ -3,6 +3,12 @@
 
     <p class="text-section">Edita tus datos de usuario.</p>
 
+    <div class="alert alert-success col-md-5 m-auto" *ngIf="status === 'success'">
+        Informacion ha sido actualizada. 
+    </div>
+    <div class="alert alert-danger col-md-5 m-auto" *ngIf="status === 'error'">
+        Ha ocurrido un error.
+    </div>
 
     <form class="col-md-5 mx-sm-auto mt-lg-5" #userEditForm = "ngForm" (ngSubmit) = "onSubmit(userEditForm)">
         <div class="form-group mt-3">
@@ -22,7 +28,7 @@
         </div>
         <div class="form-group mt-3">
             <label for="description">Descripcion</label>
-            <input type="description" name="description" class="form-control" #description="ngModel" [(ngModel)]="user.description">
+            <textarea [froalaEditor] name="description" class="form-control" #description="ngModel" [(ngModel)]="user.description"></textarea>
             <small *ngIf="!description.valid && description.touched" class="invalid-feedback d-block">La description no es valida</small>
         </div>
 
@@ -32,7 +38,7 @@
             <small *ngIf="!image.valid && image.touched" class="invalid-feedback d-block">El email no es valido</small>
         </div>
         <div class="form-group mt-5">
-        <input type="submit" value="Actualizar" class="btn btn-primary mt-4 ml-auto miboton"  [disabled]="!userEditForm.form.valid">
+        <input type="submit" value="Actualizar" class="btn btn-success mt-4 ml-auto miboton"  [disabled]="!userEditForm.form.valid">
         </div>
     </form>
 </section>
