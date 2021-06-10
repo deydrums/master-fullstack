@@ -17,7 +17,7 @@
           <a class="nav-link" href="#">Categorias</a>
         </li>
       </ul>
-      <ul class="navbar-nav navbar-right" *ngIf="!identity">
+      <ul class="navbar-nav navbar-right" *ngIf="!identity || !identity.name">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" [routerLink]="['/login']">Login</a>
         </li>
@@ -37,7 +37,7 @@
             <div class="dropdown-divider"></div>
             <li><a class="dropdown-item" href="#">Mi perfil</a></li>
             <li><a class="dropdown-item" href="#">Ajustes</a></li>
-            <li><a class="dropdown-item" href="#">Salir</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/logout/1']">Salir</a></li>
 
           </ul>
         </li>
