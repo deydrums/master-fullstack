@@ -23,7 +23,7 @@
         <div class="form-group mt-3">
             <label for="description">Descripcion</label>
             <input type="description" name="description" class="form-control" #description="ngModel" [(ngModel)]="user.description">
-            <small *ngIf="!description.valid && description.touched" class="invalid-feedback d-block">El email no es valido</small>
+            <small *ngIf="!description.valid && description.touched" class="invalid-feedback d-block">La description no es valida</small>
         </div>
 
         <div class="form-group mt-3">
