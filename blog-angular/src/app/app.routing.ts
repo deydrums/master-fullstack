@@ -5,6 +5,8 @@ import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
 import { ErrorComponent } from './components/error/error.component';
 import { HomeComponent } from './components/home/home.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
+
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -12,6 +14,7 @@ const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'logout/:sure', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
+    {path: 'ajustes', component: UserEditComponent},
     {path: '**', component: ErrorComponent}
 ];
 

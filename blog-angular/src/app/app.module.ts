@@ -14,13 +14,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    ErrorComponent
+    ErrorComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
