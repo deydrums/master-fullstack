@@ -99,20 +99,22 @@ class UserController extends Controller
                 'message' => 'El usuario no se ha podido loggear',
                 'errors' => $validate->errors()
             );
+            $data = [$signup , 'code' =>$signup['code']];
         }else{
         //Cifrar la contraseña
             $pwd = hash('sha256',$params -> password);
         //Devolver token o datos
             $signup = $jwtAuth->signup($params->email,$pwd);
-
+            $data = [$signup[0] , 'code' =>$signup['code']];
             if(!empty($params->gettoken)){
                 $signup = $jwtAuth->signup($params->email,$pwd,true);
+                $data = [$signup[0] , 'code' =>$signup['code']];
             }
         }
 
         
 
-        return  response()->json($signup,200);
+        return  response()->json($data[0],$data['code']);
     }
 
     public function update(Request $request){

@@ -38,17 +38,19 @@ class JwtAuth{
 
              $decoded = JWT::decode($jwt, $this->key, ['HS256']);
              if(is_null($getToken)){
-                 $data = $jwt;
+                 $data = [$jwt, 'code' => 200];
              }else{
-                 $data = $decoded;
+                 $data = [$decoded, 'code' => 200];
              }
         }else{
-            $data = array(
+            $dat = [
                 'status' => 'error',
-                'message' => 'Login Incorrecto'
-            );
+                'code' => 404,
+                'message' => 'Credenciales invalidas'
+            ];
+            $data = [$dat, 'code' => $dat['code']];
+            
         }
-   
         return $data;
     }
 
