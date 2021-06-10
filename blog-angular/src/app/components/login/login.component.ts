@@ -41,6 +41,10 @@ export class LoginComponent implements OnInit {
           this._userService.signup(this.user, true).subscribe(
             response =>{
                 this.identity = response;
+
+                //Persistir datos usuario identificado
+                localStorage.setItem('token', this.token);
+                localStorage.setItem('identity', JSON.stringify(this.identity));
             },
             error =>{
               this.status = 'error';
