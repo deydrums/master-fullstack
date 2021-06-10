@@ -52,6 +52,8 @@
     text-align: center;
   }
 
-  .derecha{
-    float:right;
+  .miboton{
+    display: block !important;
+    width:60%;
+    margin: 0 auto !important;
   }
