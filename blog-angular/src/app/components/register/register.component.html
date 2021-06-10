@@ -3,6 +3,13 @@
 
     <p class="text-section">Registrate en nuestra plataforma para crear nuevas entradas y mucho más.</p>
 
+    <div class="alert alert-success col-md-5 m-auto" *ngIf="status === 'success'">
+        El registro se ha completado correctamente. <a [routerLink]="['/login']">Logueate aqui</a>
+    </div>
+    <div class="alert alert-danger col-md-5 m-auto" *ngIf="status === 'error'">
+        El registro no se ha completado correctamente. 
+    </div>
+
     <form class="col-md-5 mx-sm-auto mt-lg-5" #registerForm = "ngForm" (ngSubmit) = "onSubmit(registerForm)">
         <div class="form-group">
             <label for="name">Nombre</label>
