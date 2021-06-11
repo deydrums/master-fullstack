@@ -15,6 +15,7 @@ export class UserEditComponent implements OnInit {
   public identity;
   public token;
   public status!: any;
+  public url!: string;
 
   afuConfig = {
     multiple: false,
@@ -48,6 +49,7 @@ export class UserEditComponent implements OnInit {
     this.user = new User(1,'','','ROLE_USER','','','','');
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    this.url = global.url;
     //Rellenar
     this.user = new User(
       this.identity.sub,
@@ -61,6 +63,7 @@ export class UserEditComponent implements OnInit {
   }
     
   ngOnInit(): void {
+    console.log(this.identity);
   }
 
   onSubmit(form:any){
