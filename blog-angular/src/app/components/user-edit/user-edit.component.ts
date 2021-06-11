@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
-
+import {global} from '../../services/global';
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
@@ -15,6 +15,33 @@ export class UserEditComponent implements OnInit {
   public identity;
   public token;
   public status!: any;
+
+  afuConfig = {
+    multiple: false,
+    formatsAllowed: ".jpg,.png,.png,jpeg",
+    maxSize: 3,
+    uploadAPI:  {
+      url: global.url+"user/upload",
+      headers: {
+     "Authorization" : this._userService.getToken()
+      }
+    },
+    theme: "attachPin",
+    hideProgressBar: false,
+    hideResetBtn: true,
+    hideSelectBtn: false,
+    fileNameIndex: true,
+    replaceTexts: {
+      selectFileBtn: 'Select Files',
+      resetBtn: 'Reset',
+      uploadBtn: 'Subir',
+      dragNDropBox: 'Drag N Drop',
+      attachPinBtn: 'Sube tu avatar...',
+      afterUploadMsg_success: 'Carga completa !',
+      afterUploadMsg_error: 'LA carga ha fallado !',
+      sizeLimit: 'Fuera del tamaño permitido'
+    }
+};
 
   constructor(private _userService: UserService) { 
     this.page_title = 'Ajustes';
@@ -73,4 +100,16 @@ export class UserEditComponent implements OnInit {
     );
 
   }
+
+  avatarUpload(datos:any){
+    if(datos.status == 400){
+      console.log(datos.error);
+    }else if(datos.status == 200){
+      console.log(datos.body);
+      let data = datos.body.image;
+      this.user.image = data;
+   
+    }
+  }
+
 }

@@ -29,19 +29,27 @@
         <div class="form-group mt-3">
             <label for="description">Descripcion</label>
             <!-- <ckeditor class="form-control" #description="ngModel" [(ngModel)]="user.description"></ckeditor> -->
+            <!-- <textarea name="description" class="form-control" #description="ngModel" [(ngModel)]="user.description"></textarea> -->
             <textarea name="description" class="form-control" #description="ngModel" [(ngModel)]="user.description"></textarea>
+
             <small *ngIf="!description.valid && description.touched" class="invalid-feedback d-block">La description no es valida</small>
         </div>
 
         <div class="form-group mt-3">
             <label for="image">Foto de perfil</label>
-            <input type="file" name="image" class="form-control" #image="ngModel" [(ngModel)]="user.image">
-            <small *ngIf="!image.valid && image.touched" class="invalid-feedback d-block">El email no es valido</small>
+            <!-- <input type="file" name="image" class="form-control" #image="ngModel" [(ngModel)]="user.image">
+            <small *ngIf="!image.valid && image.touched" class="invalid-feedback d-block">El email no es valido</small> -->
+            <angular-file-uploader
+            [config]="afuConfig"
+            (ApiResponse)="avatarUpload($event)">
+            </angular-file-uploader>
+        
         </div>
         <div class="form-group mt-5">
         <input type="submit" value="Actualizar" class="btn btn-success mt-4 ml-auto miboton"  [disabled]="!userEditForm.form.valid">
         </div>
 
-        
+
+
     </form>
 </section>

@@ -42,7 +42,8 @@ import { AngularFileUploaderModule } from "angular-file-uploader";
     FroalaViewModule.forRoot(),
     EditorModule,
     CKEditorModule,
-    AngularFileUploaderModule,
+    AngularFileUploaderModule
+
 
   ],
   providers: [
