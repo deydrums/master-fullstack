@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
   providers: [UserService]
 })
 export class UserEditComponent implements OnInit {
+
   public page_title: string;
   public user: User;
   public identity;

@@ -9,6 +9,8 @@ import { routing, appRoutingProviders } from './app.routing';
 import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 
+import { EditorModule } from '@tinymce/tinymce-angular';
+
 import { FormsModule } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
@@ -18,6 +20,7 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 // Import Angular plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { CKEditorModule } from 'ckeditor4-angular';
 
 
 @NgModule({
@@ -35,7 +38,9 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     FormsModule,
     HttpClientModule,
     FroalaEditorModule.forRoot(), 
-    FroalaViewModule.forRoot()
+    FroalaViewModule.forRoot(),
+    EditorModule,
+    CKEditorModule
   ],
   providers: [
     appRoutingProviders
