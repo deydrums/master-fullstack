@@ -21,6 +21,7 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 // Import Angular plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { CKEditorModule } from 'ckeditor4-angular';
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 
 @NgModule({
@@ -40,7 +41,9 @@ import { CKEditorModule } from 'ckeditor4-angular';
     FroalaEditorModule.forRoot(), 
     FroalaViewModule.forRoot(),
     EditorModule,
-    CKEditorModule
+    CKEditorModule,
+    AngularFileUploaderModule,
+
   ],
   providers: [
     appRoutingProviders
