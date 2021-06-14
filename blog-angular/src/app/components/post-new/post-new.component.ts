@@ -20,7 +20,8 @@ export class PostNewComponent implements OnInit {
   public post!: Post;
   public categories: any;
   public url!: string;
-  
+  public status!: any;
+
   afuConfig = {
     multiple: false,
     formatsAllowed: ".jpg,.png,.png,jpeg",
@@ -92,8 +93,22 @@ export class PostNewComponent implements OnInit {
   }
 
   onSubmit(form:any){
-    console.log(this.post);
-    console.log(this._postService.pruebas);
+    this._postService.create(this.token,this.post).subscribe(
+      response =>{
+        if(response.status == 'success'){
+          this.post = response.post;
+          this.status = 'success';
+          this._router.navigate(['inicio']);
+        }else{
+          this.status = 'error';
+        }
+
+      },
+      error =>{
+        console.log(<any>error);
+        this.status = 'error';
+      }
+    );
   }
 
 }
