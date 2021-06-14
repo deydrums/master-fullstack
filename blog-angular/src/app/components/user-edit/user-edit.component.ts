@@ -37,9 +37,9 @@ export class UserEditComponent implements OnInit {
       resetBtn: 'Reset',
       uploadBtn: 'Subir',
       dragNDropBox: 'Drag N Drop',
-      attachPinBtn: 'Sube tu avatar...',
+      attachPinBtn: 'Sube una imagen...',
       afterUploadMsg_success: 'Carga completa !',
-      afterUploadMsg_error: 'LA carga ha fallado !',
+      afterUploadMsg_error: 'La carga ha fallado !',
       sizeLimit: 'Fuera del tamaño permitido'
     }
 };

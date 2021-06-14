@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from '../../services/category.service';
 import { Post } from '../../models/post';
+import { global } from '../../services/global';
 
 @Component({
   selector: 'app-post-new',
@@ -17,6 +18,34 @@ export class PostNewComponent implements OnInit {
   public token: any;
   public post!: Post;
   public categories: any;
+  public url!: string;
+  
+  afuConfig = {
+    multiple: false,
+    formatsAllowed: ".jpg,.png,.png,jpeg",
+    maxSize: 3,
+    uploadAPI:  {
+      url: global.url+"post/upload",
+      headers: {
+     "Authorization" : this._userService.getToken()
+      }
+    },
+    theme: "attachPin",
+    hideProgressBar: false,
+    hideResetBtn: true,
+    hideSelectBtn: false,
+    fileNameIndex: true,
+    replaceTexts: {
+      selectFileBtn: 'Select Files',
+      resetBtn: 'Reset',
+      uploadBtn: 'Subir',
+      dragNDropBox: 'Drag N Drop',
+      attachPinBtn: 'Sube tu avatar...',
+      afterUploadMsg_success: 'Carga completa !',
+      afterUploadMsg_error: 'LA carga ha fallado !',
+      sizeLimit: 'Fuera del tamaño permitido'
+    }
+};
 
   constructor(
     private _route: ActivatedRoute,
@@ -27,6 +56,7 @@ export class PostNewComponent implements OnInit {
     this.page_title = 'Crear una nueva entrada';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    this.url = global.url;
    }
 
   ngOnInit(): void {
@@ -47,6 +77,16 @@ export class PostNewComponent implements OnInit {
         console.log(<any>error);
       }
     )
+  }
+
+  imageUpload(datos:any){
+    if(datos.status == 400){
+      console.log(datos.error);
+    }else if(datos.status == 200){
+    console.log(datos.body);
+    let image_data = datos.body.image;
+    this.post.image = image_data;
+    }
   }
 
   onSubmit(form:any){
