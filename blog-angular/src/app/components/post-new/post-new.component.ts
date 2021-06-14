@@ -90,7 +90,7 @@ export class PostNewComponent implements OnInit {
   }
 
   onSubmit(form:any){
-
+    console.log(this.post);
   }
 
 }

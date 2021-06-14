@@ -19,7 +19,7 @@
 
         <div class="form-group mt-3">
             <label for="content">Contenido</label>
-            <textarea name="content" class="form-control" #content="ngModel" [(ngModel)]="post.content"></textarea>
+            <textarea name="content" class="form-control" #content="ngModel" [(ngModel)]="post.content" required></textarea>
             <small *ngIf="!content.valid && content.touched" class="invalid-feedback d-block">El contenido no es valido</small>
         </div>
 
