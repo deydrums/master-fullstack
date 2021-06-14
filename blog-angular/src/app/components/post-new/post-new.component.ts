@@ -5,12 +5,13 @@ import { Category } from 'src/app/models/category';
 import { CategoryService } from '../../services/category.service';
 import { Post } from '../../models/post';
 import { global } from '../../services/global';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-post-new',
   templateUrl: './post-new.component.html',
   styleUrls: ['./post-new.component.css'],
-  providers: [UserService,CategoryService]
+  providers: [UserService,CategoryService, PostService]
 })
 export class PostNewComponent implements OnInit {
   public page_title: string;
@@ -51,7 +52,8 @@ export class PostNewComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
     private _userService: UserService,
-    private _categoryService: CategoryService
+    private _categoryService: CategoryService,
+    private _postService: PostService
   ) {
     this.page_title = 'Crear una nueva entrada';
     this.identity = this._userService.getIdentity();
@@ -91,6 +93,7 @@ export class PostNewComponent implements OnInit {
 
   onSubmit(form:any){
     console.log(this.post);
+    console.log(this._postService.pruebas);
   }
 
 }
