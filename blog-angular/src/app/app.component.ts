@@ -16,6 +16,7 @@ export class AppComponent implements OnInit, DoCheck{
   public url;
   public categories:any;
 
+
   constructor(
     private _userService: UserService,
     private _categoryService: CategoryService
@@ -51,4 +52,5 @@ export class AppComponent implements OnInit, DoCheck{
       }
     );
   }
+
 }

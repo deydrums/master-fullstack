@@ -23,7 +23,7 @@ class PostController extends Controller
         return response()->json([
             'code' => 200,
             'status' =>'success',
-            'categories' => $posts
+            'posts' => $posts
         ]);
     }
 
