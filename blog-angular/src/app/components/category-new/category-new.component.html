@@ -3,12 +3,13 @@
 
     <p class="text-section">Crea una nueva categoria</p>
 
-    <!-- <div class="alert alert-success col-md-5 m-auto" *ngIf="status === 'success'">
-        Informacion ha sido actualizada. 
+    <div class="alert alert-success col-md-5 m-auto" *ngIf="status === 'success'">
+        Categoria creada correctamente.
     </div>
     <div class="alert alert-danger col-md-5 m-auto" *ngIf="status === 'error'">
-        Ha ocurrido un error.
-    </div> -->
+        Error al crear la categoria.
+    </div>
+
     <form class="col-md-5 mx-sm-auto mt-lg-5" #categoryForm = "ngForm" (ngSubmit) = "onSubmit(categoryForm)">
         <div class="form-group mt-3">
             <label for="name">Nombre</label>
