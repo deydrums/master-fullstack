@@ -24,6 +24,7 @@ import { CKEditorModule } from 'ckeditor4-angular';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 import { CategoryNewComponent } from './components/category-new/category-new.component';
 import { PostNewComponent } from './components/post-new/post-new.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
 
 
 @NgModule({
@@ -35,8 +36,9 @@ import { PostNewComponent } from './components/post-new/post-new.component';
     ErrorComponent,
     UserEditComponent,
     CategoryNewComponent,
-    PostNewComponent
-  ],
+    PostNewComponent,
+    PostDetailComponent
+    ],
   imports: [
     BrowserModule,
     routing,
