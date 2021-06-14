@@ -5,7 +5,7 @@ export class Post{
         public category_id:number,
         public title:string,
         public content:string,
-        public image: string,
+        public image: any,
         public createdAt:any,
     ){
 
