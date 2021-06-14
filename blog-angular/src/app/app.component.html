@@ -13,8 +13,8 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" [routerLink]="['/inicio']">Inicio</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Categorias</a>
+        <li class="nav-item" *ngFor = "let category of categories">
+          <a class="nav-link" href="#">{{category.name}}</a>
         </li>
       </ul>
       <ul class="navbar-nav navbar-right" *ngIf="!identity || !identity.name">
