@@ -27,8 +27,10 @@
 
                     <div class="post-buttons mt-2">
                         <a [routerLink]="['/inicio']" class="btn btn-secondary btn-sm  m-1">Leer</a>
-                        <a [routerLink]="['/inicio']" class="btn btn-secondary btn-sm  m-1">Editar</a>
-                        <a [routerLink]="['/inicio']" class="btn btn-primary btn-sm  m-1">Borrar</a>
+                        <span *ngIf="identity && (identity.sub == post.user_id || identity.role == 'ROLE_ADMIN')">
+                            <a [routerLink]="['/inicio']" class="btn btn-success btn-sm  m-1">Editar</a>
+                            <a [routerLink]="['/inicio']" class="btn btn-primary btn-sm  m-1">Borrar</a>
+                        </span>
                     </div>
                 </div>
                 
