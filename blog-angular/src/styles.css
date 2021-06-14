@@ -80,6 +80,18 @@
     
   }
 
+  .bar {
+    align-items:flex-start !important;
+  }
+
+  .avatar-bar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border:1px solid #ccc;
+  }
+
   .foto{
     padding-top: 20px;
   }
