@@ -34,4 +34,8 @@ export class PostNewComponent implements OnInit {
     console.log(this.post);
   }
 
+  onSubmit(form:any){
+    
+  }
+
 }
