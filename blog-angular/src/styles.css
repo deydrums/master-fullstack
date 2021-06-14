@@ -101,3 +101,8 @@
     color: #444;
   }
 
+.post-buttons{
+  width: 100%;
+  display: flex;
+  justify-content:flex-end;
+}
