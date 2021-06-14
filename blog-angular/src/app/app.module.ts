@@ -22,6 +22,7 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { CKEditorModule } from 'ckeditor4-angular';
 import { AngularFileUploaderModule } from "angular-file-uploader";
+import { CategoryNewComponent } from './components/category-new/category-new.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { AngularFileUploaderModule } from "angular-file-uploader";
     RegisterComponent,
     HomeComponent,
     ErrorComponent,
-    UserEditComponent
+    UserEditComponent,
+    CategoryNewComponent
   ],
   imports: [
     BrowserModule,
