@@ -29,4 +29,7 @@ export class CategoryNewComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit(form:any){
+    console.log(this.category);
+  }
 }
