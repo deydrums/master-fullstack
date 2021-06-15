@@ -21,6 +21,7 @@ export class PostNewComponent implements OnInit {
   public categories: any;
   public url!: string;
   public status!: any;
+  public description!:any;
 
   afuConfig = {
     multiple: false,
@@ -57,6 +58,7 @@ export class PostNewComponent implements OnInit {
     private _postService: PostService
   ) {
     this.page_title = 'Crear una nueva entrada';
+    this.description = 'Crea una nueva entrada para el blog';
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.url = global.url;
