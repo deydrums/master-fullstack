@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { Post } from '../../models/post';
 import { PostService } from 'src/app/services/post.service';
+import { User } from 'src/app/models/user';
+import { Category } from 'src/app/models/category';
 
 @Component({
   selector: 'app-post-detail',
@@ -12,6 +14,8 @@ import { PostService } from 'src/app/services/post.service';
 export class PostDetailComponent implements OnInit {
   public page_title: string;
   public post!: Post;
+  public category!: Category;
+  public user!: User;
 
   constructor(
     private _postService: PostService,
@@ -35,6 +39,8 @@ export class PostDetailComponent implements OnInit {
         response => {
           if(response.status == 'success'){
             this.post = response.posts;
+            this.user = response.posts.user;
+            this.category = response.posts.category;
             console.log(this.post);
           }else{
             this._router.navigate(['/inicio']);
