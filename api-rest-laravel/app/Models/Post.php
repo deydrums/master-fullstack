@@ -14,7 +14,8 @@ class Post extends Model
     protected $fillable = [
         'title',
         'content',
-        'category_id'
+        'category_id',
+        'image'
     ];
 
     //Relacion de uno a muchos inversa (MUCHOS A UNO) muchos post para un usuario
