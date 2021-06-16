@@ -49,7 +49,7 @@ export class UserService {
 
     getIdentity(){
         let identity = JSON.parse(localStorage.getItem('identity') || '{}');
-        if(identity && identity != "undefined"){
+        if(identity && identity != "undefined" && identity != '{}'){
             this.identity = identity;
         }else{
             this.identity = null;
