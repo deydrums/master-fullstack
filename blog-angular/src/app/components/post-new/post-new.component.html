@@ -33,12 +33,21 @@
         </div>
 
         <div class="form-group mt-3">
-            <label for="image">Imagen</label>
-            <angular-file-uploader 
-            class="foto"
-            [config]="afuConfig"
-            (ApiResponse)="imageUpload($event)">
-            </angular-file-uploader>
+            <div class="content-avatar">
+                <label for="image">Imagen del post</label>
+                   <img src="{{url + 'post/image/'+ post.image}}" alt="" class="avatar" *ngIf="post.image" >
+    
+                   <angular-file-uploader 
+                   class="foto"
+                   [config]="afuConfig"
+                   (ApiResponse)="imageUpload($event)">
+                   </angular-file-uploader>
+                   
+            </div>
+
+
+
+
         </div>
 
         <div class="form-group mt-5">
