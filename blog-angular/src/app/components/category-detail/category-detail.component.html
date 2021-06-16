@@ -1,1 +1,15 @@
-<p>category-detail works!</p>
+<section class="container home">
+
+    <div class="loading" *ngIf="!category">
+      Cargando...
+    </div>
+  
+    <div class="container-fluid" *ngIf="category">
+      <h2 class="title">{{category.name}}</h2>
+ 
+  
+  
+    </div>
+  
+  </section>
+  
