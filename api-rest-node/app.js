@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var app = express();
 
 //Cargar archivos de rutas
+var user_routes = require('./routes/user');
 
 //Middleware
 app.use(bodyParser.urlencoded({extended:false}));
@@ -22,21 +23,7 @@ app.use((req, res, next) => {
 });
 
 //Reescribir rutas
-
-//Ruta / metodo de prueba
-app.get('/prueba',(req, res) => {
-    return res.status(200).send({
-        nombre: "David Garcia",
-        message: 'Hola Mundo'
-    });
-});
-
-app.post('/prueba',(req, res) => {
-    return res.status(200).send({
-        nombre: "David Garcia",
-        message: 'Hola Mundo 2'
-    });
-});
+app.use('/api', user_routes);
 
 //Exportar el modulo
 module.exports = app;
