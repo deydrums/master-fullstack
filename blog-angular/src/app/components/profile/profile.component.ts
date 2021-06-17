@@ -4,6 +4,7 @@ import { Post } from '../../models/post';
 import { global } from '../../services/global';
 import { UserService } from '../../services/user.service';
 import { Router, ActivatedRoute, Params} from '@angular/router';
+import { User } from '../../models/user'
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +18,7 @@ export class ProfileComponent implements OnInit {
   public url;
   public identity;
   public token;
+  public user!: User;
   
   constructor(
     private _postService: PostService,
@@ -24,7 +26,7 @@ export class ProfileComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router,
   ) {
-    this.page_title = "Pagina de perfil";
+    this.page_title = "Perfil de ";
     this.url = global.url;
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
@@ -37,12 +39,23 @@ export class ProfileComponent implements OnInit {
 
 
   getUser(userId:any){
-
+    this._userService.getUser(userId).subscribe(
+      response =>{
+        this.user = response.user;
+        //console.log(this.user);
+      },
+      error =>{
+        console.log(<any>error);
+      }
+    );
   }
+
+
   
   getProfile(){
     this._route.params.subscribe(params => {
       let userId = +params['id'];
+      this.getUser(userId);
       this.getPosts(userId);
       });
   }
@@ -50,7 +63,8 @@ export class ProfileComponent implements OnInit {
   getPosts(userId:any){
     this._userService.getPosts(userId).subscribe(
       response =>{
-        this.getProfile();
+        this.posts = response.posts;
+        console.log(this.posts);
       },
       error =>{
         console.log(<any>error);
@@ -63,10 +77,7 @@ export class ProfileComponent implements OnInit {
   deletePost(id:any) {
     this._postService.delete(this.token,id).subscribe(
       response => {
-        this._route.params.subscribe(params => {
-          let userId = +params['id'];
-          this.getPosts(userId);
-          });
+        this.getProfile();
       },
       error => {
         console.log(<any>error);

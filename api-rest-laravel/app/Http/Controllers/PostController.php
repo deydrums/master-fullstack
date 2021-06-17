@@ -266,7 +266,7 @@ class PostController extends Controller
         $posts = Post::where('user_id',$id)->get();
         return response()->json([
             'status' =>'success',
-            'post' => $posts
+            'posts' => $posts
         ],200);
     }
 }
