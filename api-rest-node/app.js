@@ -31,5 +31,12 @@ app.get('/prueba',(req, res) => {
     });
 });
 
+app.post('/prueba',(req, res) => {
+    return res.status(200).send({
+        nombre: "David Garcia",
+        message: 'Hola Mundo 2'
+    });
+});
+
 //Exportar el modulo
 module.exports = app;
