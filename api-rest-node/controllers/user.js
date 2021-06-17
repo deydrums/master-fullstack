@@ -35,7 +35,7 @@ var controller = {
         if(!validate_name){ erro += 'nombre, '}
         if(!validate_surname){erro += 'apellido, '}
         if(!validate_email){erro += 'email, '}
-        if(!validate_password){erro += 'contraseña, '}
+        if(!validate_password){erro += 'password, '}
         erro += 'sea correcto.'
 
         if( validate_name && validate_surname && validate_email && validate_password){
@@ -99,23 +99,38 @@ var controller = {
     },
 
     login: function(req, res){
-        //Recoger los parametros de la peticion
-
+        //Recoger los parametros de la peticion 
+        var params = req.body;
         //Validar los datos
-
+        var validate_email = !validator.isEmpty(params.email) && validator.isEmail(params.email);
+        var validate_password = !validator.isEmpty(params.password);
+        
+        var erro = "Verifica que el ";
+        if(!validate_email){erro += 'email, '}
+        if(!validate_password){erro += 'password, '}
+        erro += 'sea correcto.'
+        //Validar los datos
+        if(!validate_email || !validate_password){
+            return res.status(400).send({
+                message: erro
+            }); 
+        }
         //Buscar usuarios que coincidan con el email
+        User.findOne({email: params.email.toLowerCase()},(err, user)=>{
 
-        //Si lo encuentra
+            //Si lo encuentra
 
-        //Comprobar la contraseña (Cuincidencia con email y password)
+            //Comprobar la contraseña (Cuincidencia con email y password)
 
-        //Si es correcto
+            //Si es correcto
 
-        //Generar token de jwt y devolverlo
+            //Generar token de jwt y devolverlo
 
-        //Devolver los datos
+            //Devolver los datos
 
-        return res.status(200).send({message: 'Metodo de login'});
+            return res.status(200).send({message: 'Metodo de login', user});
+        });
+
     }
 
 }
