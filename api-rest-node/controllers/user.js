@@ -39,28 +39,43 @@ var controller = {
 
         if( validate_name && validate_surname && validate_email && validate_password){
             //Crear objeto de usuario
+            var user = new User();
             //Asignar valores al usuario
-
+            user.name = params.name;
+            user.surname = params.surname;
+            user.email = params.email.toLowerCase();
+            user.role = 'ROLE_USER';
+            user.image = null;
+            user.password = params.password;
             //Comprobar si el usuario existe
+            User.findOne({email: user.email},(err, issetUser) => {
+                if(err) {
+                    return res.status(500).send({
+                        message: "Error al comprobar duplicidad del usuario"
+                    });  
+                }
+                if(!issetUser) {
+                    //Si no existe, cifrar la contraseña
 
-            //Si no existe, cifrar la contraseña
+                    //Guardar el usuario
 
-            //Guardar el usuario
+                    //Devolver respuesta
+                    return res.status(200).send({
+                        message: "El usuario no esta registrado"
+                    });  
+                }else{
+                    return res.status(400).send({
+                        message: "El correo ya ha sido registrado anteriormente"
+                    });  
+                }
+            });
 
-            //Devolver respuesta
         }else{
             return res.status(400).send({
                 message: erro
             }); 
         }
-
-
-        return res.status(200).send({
-            message: "Registro de usuarios"
-
-        });
     }
-
 
 }
 
