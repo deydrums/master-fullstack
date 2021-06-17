@@ -14,6 +14,28 @@ var controller = {
         return res.status(200).send({
             message: "Soy el metodo testeando",
         });
+    },
+
+    save: function(req, res){
+        //Recoger los parametros de la peticion 
+
+        //Validar los datos
+
+        //Crar objeto de usuario
+
+        //Asignar valores al usuario
+
+        //Comprobar si el usuario existe
+
+        //Si no existe, cifrar la contraseña
+
+        //Guardar el usuario
+
+        //Devolver respuesta
+
+        return res.status(200).send({
+            message: "Registro de usuarios",
+        });
     }
 }
 

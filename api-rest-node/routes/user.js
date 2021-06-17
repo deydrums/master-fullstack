@@ -9,4 +9,6 @@ router.get('/probando',UserController.probando);
 router.get('/testeando',UserController.testeando);
 
 
+router.post('/register',UserController.save);
+
 module.exports = router;
