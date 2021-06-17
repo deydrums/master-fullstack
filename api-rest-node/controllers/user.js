@@ -96,6 +96,26 @@ var controller = {
                 message: erro
             }); 
         }
+    },
+
+    login: function(req, res){
+        //Recoger los parametros de la peticion
+
+        //Validar los datos
+
+        //Buscar usuarios que coincidan con el email
+
+        //Si lo encuentra
+
+        //Comprobar la contraseña (Cuincidencia con email y password)
+
+        //Si es correcto
+
+        //Generar token de jwt y devolverlo
+
+        //Devolver los datos
+
+        return res.status(200).send({message: 'Metodo de login'});
     }
 
 }
