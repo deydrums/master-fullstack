@@ -2,6 +2,7 @@
 
 var validator = require('validator');
 var User = require('../models/user');
+var bcrypt = require('bcrypt-node');
 // var fs = require('fs');
 // var path = require('path');
 
@@ -46,7 +47,7 @@ var controller = {
             user.email = params.email.toLowerCase();
             user.role = 'ROLE_USER';
             user.image = null;
-            user.password = params.password;
+            
             //Comprobar si el usuario existe
             User.findOne({email: user.email},(err, issetUser) => {
                 if(err) {
@@ -56,13 +57,33 @@ var controller = {
                 }
                 if(!issetUser) {
                     //Si no existe, cifrar la contraseña
+                    bcrypt.hash(params.password, null, null, function(err , hash){
+                        user.password = hash;
+                        //Guardar el usuario
+                        user.save((err, userStored)=>{
+                            if(err) {
+                                return res.status(500).send({
+                                    message: "Error al guardar el usuario"
+                                });  
+                            }
 
-                    //Guardar el usuario
+                            if(!userStored) {
+                                return res.status(500).send({
+                                    message: "Error al guardar el usuario"
+                                });    
+                            }else{
+                                //Devolver respuesta
+                                return res.status(200).send({
+                                    status: "success",
+                                    message: "El usuario se ha registrado exitosamente",
+                                    user:userStored
+                                });  
+                            }
 
-                    //Devolver respuesta
-                    return res.status(200).send({
-                        message: "El usuario no esta registrado"
-                    });  
+                        });
+
+                    });
+
                 }else{
                     return res.status(400).send({
                         message: "El correo ya ha sido registrado anteriormente"
