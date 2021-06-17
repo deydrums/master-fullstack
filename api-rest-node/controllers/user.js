@@ -3,6 +3,7 @@
 var validator = require('validator');
 var User = require('../models/user');
 var bcrypt = require('bcrypt-node');
+var jwt = require('../services/jwt')
 // var fs = require('fs');
 // var path = require('path');
 
@@ -130,11 +131,14 @@ var controller = {
                 //Si es correcto
                 if(check){
                     //Generar token de jwt y devolverlo
-
-                    //Limpiar el objeto
-                    user.password = undefined;
-                    //Devolver los datos
-                    return res.status(200).send({status: 'success', user});
+                    if(params.gettoken){
+                        return res.status(200).send({status: 'success', token: jwt.createToken(user)});
+                    }else{
+                        //Limpiar el objeto
+                        user.password = undefined;
+                        //Devolver los datos
+                        return res.status(200).send({status: 'success', user});
+                    }
                 }else{
                     return res.status(500).send({status: 'error', message: 'Credenciales invalidas  '});
                 }
