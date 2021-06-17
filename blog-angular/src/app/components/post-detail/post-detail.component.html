@@ -10,8 +10,9 @@
             <article class="card w-100">
                 <div class="card-header">
                     <h5>
-                        {{category.name}} | {{user.name + ' ' + user.surname}}
+                        {{category.name}} | <a [routerLink]="['/perfil/',user.id]"> {{user.name + ' ' + user.surname}} </a>
                     </h5>
+                   
                 </div>
                 <div class="card-body">
                     {{post.content}}

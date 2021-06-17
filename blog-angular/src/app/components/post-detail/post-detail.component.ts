@@ -4,25 +4,29 @@ import { Post } from '../../models/post';
 import { PostService } from 'src/app/services/post.service';
 import { User } from 'src/app/models/user';
 import { Category } from 'src/app/models/category';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.css'],
-  providers: [PostService]
+  providers: [PostService, UserService]
 })
 export class PostDetailComponent implements OnInit {
   public page_title: string;
   public post!: Post;
   public category!: Category;
   public user!: User;
+  public identity!:any;
 
   constructor(
     private _postService: PostService,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _userService: UserService
   ) {
     this.page_title = "Entrada";
+    this.identity = this._userService.getIdentity();
    }
 
   ngOnInit(): void {
