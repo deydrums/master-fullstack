@@ -118,17 +118,27 @@ var controller = {
         //Buscar usuarios que coincidan con el email
         User.findOne({email: params.email.toLowerCase()},(err, user)=>{
 
+            if(err) {
+                return res.status(500).send({message: 'Error al intentar identificarse'});
+            }
+            if(!user) {
+                return res.status(404).send({message: 'El usuario no existe.'});
+            }
             //Si lo encuentra
-
             //Comprobar la contraseña (Cuincidencia con email y password)
+            bcrypt.compare(params.password,user.password,(err,check) => {
+                //Si es correcto
+                if(check){
+                    //Generar token de jwt y devolverlo
 
-            //Si es correcto
+                    //Devolver los datos
+                    return res.status(200).send({status: 'success', user});
+                }else{
+                    return res.status(500).send({status: 'error', message: 'Credenciales invalidas  '});
+                }
 
-            //Generar token de jwt y devolverlo
+            });
 
-            //Devolver los datos
-
-            return res.status(200).send({message: 'Metodo de login', user});
         });
 
     }
