@@ -131,6 +131,8 @@ var controller = {
                 if(check){
                     //Generar token de jwt y devolverlo
 
+                    //Limpiar el objeto
+                    user.password = undefined;
                     //Devolver los datos
                     return res.status(200).send({status: 'success', user});
                 }else{
