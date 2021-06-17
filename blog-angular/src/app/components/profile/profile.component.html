@@ -6,6 +6,18 @@
   
     <div class="container-fluid" *ngIf="posts">
       <h2 class="title">{{page_title + ' ' + user.name + ' ' + user.surname}}</h2>
+      
+
+
+       <div class="content-avatar">
+           <img src="{{url + 'user/avatar/'+ user.image}}" alt="" class="avatar" *ngIf="user && user.image" >
+           <img src="../../../assets/img/noimage.png" alt="" class="avatar" *ngIf="user && !user.image" >
+           <p [innerHTML]="user.description"> </p>
+           <p [innerHTML]="user.email"> </p>
+      
+        </div>
+
+
       <div class="card-columns">
         <article class="card w-100" *ngFor="let post of posts">
           <div class="card-header">
