@@ -37,7 +37,7 @@ export class PostDetailComponent implements OnInit {
     //Sacar el id del post de la url
     this._route.params.subscribe(params => {
       let id = +params['id'];
-      console.log(id);
+      //console.log(id);
       //Peticion Ajax para sacar los datos
       this._postService.getPost(id).subscribe(
         response => {
