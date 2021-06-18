@@ -68,13 +68,23 @@ var controller ={
 
         };
         //Find paginador
-        //Devolver resultado (topics, total, total de paginas)
-        Topic.find().exec((err,topics)=>{
-            if(err || !topics){
-                return res.status(404).send({status: 'error', message: 'No se han encontrado temas.'});
+        Topic.paginate({}, options,(err, topics)=>{
+            if(err){
+                return res.status(400).send({status: 'error', message: "Error al hacer la consulta"});
             }
-            return res.status(200).send({status: 'success', topics, page,options});
+            if(!topics){
+                return res.status(400).send({status: 'error', message: "No se han encontrado temas"});
+            }
+            //Devolver resultado (topics, total, total de paginas)
+            return res.status(200).send({status: 'success', topics: topics.docs, totalDocs: topics.totalDocs, totalPages: topics.totalPages});
         });
+        //Devolver resultado (topics, total, total de paginas)
+        // Topic.find().exec((err,topics)=>{
+        //     if(err || !topics){
+        //         return res.status(404).send({status: 'error', message: 'No se han encontrado temas.'});
+        //     }
+        //     return res.status(200).send({status: 'success', topics, page,options});
+        // });
     }
 }
 
