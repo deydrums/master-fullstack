@@ -26,11 +26,14 @@ var controller = {
         //Recoger los parametros de la peticion 
         var params = req.body;
         //Validar los datos
-        var validate_name = !validator.isEmpty(params.name);
-        var validate_surname = !validator.isEmpty(params.surname);
-        var validate_email = !validator.isEmpty(params.email) && validator.isEmail(params.email);
-        var validate_password = !validator.isEmpty(params.password);
-        
+        try{
+            var validate_name = !validator.isEmpty(params.name);
+            var validate_surname = !validator.isEmpty(params.surname);
+            var validate_email = !validator.isEmpty(params.email) && validator.isEmail(params.email);
+            var validate_password = !validator.isEmpty(params.password);
+        }catch(err){
+            return res.status(400).send({status: 'error', message: "Rellena todos los campos"}); 
+        }
         //console.log(validate_name, validate_surname, validate_email, validate_password);
         var erro = "Verifica que el ";
         if(!validate_name){ erro += 'nombre, '}
@@ -103,9 +106,12 @@ var controller = {
         //Recoger los parametros de la peticion 
         var params = req.body;
         //Validar los datos
-        var validate_email = !validator.isEmpty(params.email) && validator.isEmail(params.email);
-        var validate_password = !validator.isEmpty(params.password);
-        
+        try{
+            var validate_email = !validator.isEmpty(params.email) && validator.isEmail(params.email);
+            var validate_password = !validator.isEmpty(params.password);
+        }catch(err){
+            return res.status(400).send({status: 'error', message: "Rellena todos los campos"}); 
+        }
         var erro = "Verifica que el ";
         if(!validate_email){erro += 'email, '}
         if(!validate_password){erro += 'password, '}
@@ -151,9 +157,48 @@ var controller = {
 
     update: function(req, res){
 
-        //Crear middleware para comprobar el jwt token, poerselo a la ruta
+        //Recoger los datos del usuario
+        var params = req.body;
+        //Validar datos del usuario
+        try{
+            var validate_name = !validator.isEmpty(params.name);
+            var validate_surname = !validator.isEmpty(params.surname);
+            var validate_email = !validator.isEmpty(params.email) && validator.isEmail(params.email);
+        }catch(err){
+            return res.status(400).send({status: 'error', message: "Rellena todos los campos"}); 
+        }
+       //console.log(validate_name, validate_surname, validate_email, validate_password);
+        var erro = "Verifica que el ";
+        if(!validate_name){ erro += 'nombre, '}
+        if(!validate_surname){erro += 'apellido, '}
+        if(!validate_email){erro += 'email, '}
+        erro += 'sea correcto.' 
+
+        //Eliminar propiedades innecesarias
+        delete params.password;
+        var userId = req.user.sub;
+        console.log(userId);
+
+        if( !validate_name || !validate_surname || !validate_email){
+             return res.status(400).send({message: erro}); 
+        }
         
-        return res.status(200).send({status: 'success', message: 'Usuario actualizado'});
+        //Buscar y actualizar documento
+        //User.findOneAndUpdate(condicion, datos a actualizar, opciones, callabak)
+        User.findByIdAndUpdate({_id: userId},params,{new:true},(err,userUpdate)=>{
+            if(err){
+                return res.status(500).send({status: 'error', message: "Error al actualizar usuario"}); 
+            }
+            if(!userUpdate){
+                return res.status(500).send({status: 'error', message: "El usuario no existe"}); 
+            }
+            //Devolver respuesta
+            return res.status(200).send({status: 'success', message: 'Usuario actualizado', user:userUpdate});
+        });
+
+        
+
+        
 
     }
 
