@@ -214,7 +214,7 @@ var controller = {
                 }
             });
         }else{
-            
+
             //Buscar y actualizar documento
             //User.findOneAndUpdate(condicion, datos a actualizar, opciones, callabak)
             User.findByIdAndUpdate({_id: userId},params,{new:true},(err,userUpdate)=>{
@@ -231,6 +231,18 @@ var controller = {
         
         }
 
+    },
+
+    uploadAvatar: function(req, res){
+        //Configurar el modulo multiparty (md)
+        //Recoger el fichero de la peticion
+        //Conseguir el nombre y la extension del archivo
+        //Comprobar extension (Solo imagenes), si no es valida, borrar fichero subido
+        //Sacar el id del usuario identificado
+        //Buscar y actualizar documento de la base datos
+
+        //Devolver respuesta
+        return res.status(200).send({status: 'success', message: 'Avatar subido'});
     }
 
 }
