@@ -172,33 +172,64 @@ var controller = {
         if(!validate_name){ erro += 'nombre, '}
         if(!validate_surname){erro += 'apellido, '}
         if(!validate_email){erro += 'email, '}
-        erro += 'sea correcto.' 
+        erro += 'sea correcto.' ;
+
+        if( !validate_name || !validate_surname || !validate_email){
+            return res.status(400).send({message: erro}); 
+        }
 
         //Eliminar propiedades innecesarias
         delete params.password;
         var userId = req.user.sub;
-        console.log(userId);
 
-        if( !validate_name || !validate_surname || !validate_email){
-             return res.status(400).send({message: erro}); 
+        //Comprobar si el email es unico
+        if(req.user.email != params.email)  {
+            //Buscar usuarios que coincidan con el email
+            User.findOne({email: params.email.toLowerCase()},(err, user)=>{
+
+                if(err) {
+                    return res.status(500).send({message: 'Error al intentar actualizar datos'});
+                }
+                if(user && user.email == params.email) {
+                    return res.status(400).send({message: 'El email ya esta registrado.'});
+                }else{
+
+
+
+                    //Buscar y actualizar documento
+                    //User.findOneAndUpdate(condicion, datos a actualizar, opciones, callabak)
+                    User.findByIdAndUpdate({_id: userId},params,{new:true},(err,userUpdate)=>{
+                        if(err){
+                            return res.status(500).send({status: 'error', message: "Error al actualizar usuario"}); 
+                        }
+                        if(!userUpdate){
+                            return res.status(500).send({status: 'error', message: "El usuario no existe"}); 
+                        }
+                        //Devolver respuesta
+                        return res.status(200).send({status: 'success', message: 'Usuario actualizado', user:userUpdate});
+                    });
+
+
+
+                }
+            });
+        }else{
+            
+            //Buscar y actualizar documento
+            //User.findOneAndUpdate(condicion, datos a actualizar, opciones, callabak)
+            User.findByIdAndUpdate({_id: userId},params,{new:true},(err,userUpdate)=>{
+                if(err){
+                    return res.status(500).send({status: 'error', message: "Error al actualizar usuario"}); 
+                }
+                if(!userUpdate){
+                    return res.status(500).send({status: 'error', message: "El usuario no existe"}); 
+                }
+                //Devolver respuesta
+                return res.status(200).send({status: 'success', message: 'Usuario actualizado', user:userUpdate});
+            });
+
+        
         }
-        
-        //Buscar y actualizar documento
-        //User.findOneAndUpdate(condicion, datos a actualizar, opciones, callabak)
-        User.findByIdAndUpdate({_id: userId},params,{new:true},(err,userUpdate)=>{
-            if(err){
-                return res.status(500).send({status: 'error', message: "Error al actualizar usuario"}); 
-            }
-            if(!userUpdate){
-                return res.status(500).send({status: 'error', message: "El usuario no existe"}); 
-            }
-            //Devolver respuesta
-            return res.status(200).send({status: 'success', message: 'Usuario actualizado', user:userUpdate});
-        });
-
-        
-
-        
 
     }
 
