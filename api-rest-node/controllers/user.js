@@ -234,15 +234,42 @@ var controller = {
     },
 
     uploadAvatar: function(req, res){
-        //Configurar el modulo multiparty (md)
-        //Recoger el fichero de la peticion
+        //Configurar el modulo multiparty (md) routes/user.js
+
         //Conseguir el nombre y la extension del archivo
+        var file_path = req.files.file0.path;
+
+        //Recoger el fichero de la peticion
+        var file_name = 'Avatar no subido...';
+
+        var file_split = file_path.split('\\');
+        //**Advertencia** En linux o mac
+        //var file_split = file_path.split('/');
+
+        //Nombre del archivo
+        var file_name = file_split[2];
+
+        console.log(file_name);
+
+        if(!req.files || req.files.file0.type == null){
+            return res.status(400).send({status: 'error', message: file_name});
+        }
+
+
+
+
+
+        //Extencion del archivo
+        var ext_split = file_name.split('\.');
+        var file_ext = ext_split[1];
         //Comprobar extension (Solo imagenes), si no es valida, borrar fichero subido
+
+
         //Sacar el id del usuario identificado
         //Buscar y actualizar documento de la base datos
 
         //Devolver respuesta
-        return res.status(200).send({status: 'success', message: 'Avatar subido'});
+        return res.status(200).send({status: 'success', message: 'Avatar subido', file_path, file_name,file_ext});
     }
 
 }
