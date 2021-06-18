@@ -297,6 +297,26 @@ var controller = {
                 return res.status(404).send({status: 'error', message: 'La imagen no existe.'});
             }
         });
+    },
+
+    getUsers: function(req,res){
+        User.find().exec((err,users)=>{
+            if(err || !users){
+                return res.status(404).send({status: 'error', message: 'No se han encontrado usuarios.'});
+            }
+            return res.status(200).send({status: 'success', users});
+        });
+    },
+
+    getUser: function(req,res){
+        var userId = req.params.userId;
+
+        User.findById(userId).exec((err,user)=>{
+            if(err || !user){
+                return res.status(404).send({status: 'error', message: 'No se han encontrado el usuario.'});
+            }
+            return res.status(200).send({status: 'success', user});
+        });
     }
 
 }
