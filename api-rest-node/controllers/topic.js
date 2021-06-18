@@ -40,12 +40,21 @@ var controller ={
         //Guardar el topic
         topic.save((err, topicStored)=>{
             if(err || !topicStored){
-                return res.status(400).send({status: 'error', message: "No se ha guardado el topic"});
+                return res.status(400).send({status: 'error', message: "No se ha guardado el temas"});
             }
             //Devolver una respuesta
-            return res.status(200).send({status: 'success', message: "Topic Guardado",topic: topicStored});
+            return res.status(200).send({status: 'success', message: "Tema Guardado",topic: topicStored});
         });
 
+    },
+
+    getTopics: function(req, res){
+        Topic.find().exec((err,topics)=>{
+            if(err || !topics){
+                return res.status(404).send({status: 'error', message: 'No se han encontrado temas.'});
+            }
+            return res.status(200).send({status: 'success', topics});
+        });
     }
 }
 
