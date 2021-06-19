@@ -155,6 +155,22 @@ var controller ={
         });
 
         
+    },
+
+
+    delete: function(req, res){
+        //Recoger los parametros de la peticion
+        var topicId = req.params.id;
+        Topic.findOneAndDelete({_id: topicId, user: req.user.sub},(err, topicRemoved) => {
+            if(err){
+                return res.status(400).send({status: "error",message:"No se ha podido borrar el tema"});
+            }
+            if(!topicRemoved){
+                return res.status(400).send({status: "error",message:"No existe el tema o no es tuyo"});
+            }
+            return res.status(200).send({status: 'success',  topic: topicRemoved});
+        });
+
     }
 }
 
