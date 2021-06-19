@@ -142,8 +142,9 @@ var controller ={
             code: params.code,
             lang: params.lang
         };
+        
         //Find and update del topic por id y por id de usuario
-        Topic.findByIdAndUpdate({_id: topicId, user: req.user.sub},update,{new:true}, (err, topicUpdated)=>{
+        Topic.findOneAndUpdate({_id: topicId, user: req.user.sub},update,{new:true}, (err, topicUpdated)=>{
             if(err){
                 return res.status(400).send({status: "error",message:"No se ha podido actualizar el tema"});
             }
