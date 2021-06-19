@@ -171,6 +171,28 @@ var controller ={
             return res.status(200).send({status: 'success',  topic: topicRemoved});
         });
 
+    },
+
+    search: function(req, res){
+        //sacar el string a buscar 
+        var searchString = req.params.search;
+        //Find or
+        Topic.find({ "$or":[
+            {"title": {"$regex": searchString, "$options": "i"}},
+            {"content": {"$regex": searchString, "$options": "i"}},
+            {"code": {"$regex": searchString, "$options": "i"}},
+            {"lang": {"$regex": searchString, "$options": "i"}}
+        ]}).exec((err, topics) => {
+            if(err) {
+                return res.status(400).send({status: "error",message:"Error al buscar"});
+            }
+            if(!topics || topics == "") {
+                return res.status(404).send({status: "error",message:"No existen coincidencias para: "+searchString});
+            }
+            //Devolver el resultado
+            return res.status(200).send({status: "success",message:"Se ha encontrado lo siguiente para: "+searchString, topics});
+        });
+
     }
 }
 
