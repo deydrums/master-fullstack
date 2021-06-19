@@ -63,17 +63,22 @@ var controller ={
         if(!validate_content){
             return res.status(400).send({status: 'error', message: erro}); 
         }
+        //console.log(req.user.sub);
         //Find and update de subdocumentos
-        Topic.findOneAndUpdate({"comments._id": commentId, "user": req.user.sub},{"$set":{"comments.$.content": params.content}},{new:true},(err, topicUpdated)=>{
-            if(err) {
-                return res.status(400).send({status: 'error', message: 'Error al actualizar el comentario'}); 
-            }
-            if(!topicUpdated) {
-                return res.status(400).send({status: 'error', message: 'Error, el comentario no existe o no es tuyo'}); 
-            }
-            //Devolver una respuesta
-            return res.status(200).send({status: 'success',  topic: topicUpdated});  
-        });
+        Topic.findOneAndUpdate(
+            {"comments._id": commentId},
+            {"$set":{"comments.$[com].content": params.content}},
+            {new:true, arrayFilters: [{"com.user": req.user.sub, "com._id": commentId}]},
+            (err, topicUpdated)=>{
+                if(err) {
+                    return res.status(400).send({status: 'error', message: 'Error al actualizar el comentario'}); 
+                }
+                if(!topicUpdated) {
+                    return res.status(400).send({status: 'error', message: 'Error, el comentario no existe o no es tuyo'}); 
+                }
+                //Devolver una respuesta
+                return res.status(200).send({status: 'success',  topic: topicUpdated});  
+            });
 
     },
     delete: function(req, res){
