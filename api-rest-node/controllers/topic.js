@@ -116,7 +116,6 @@ var controller ={
     update: function(req, res){
         //Recoger los parametros de la peticion
         var params = req.body;
-        //Recoger los datos que llegan desde post 
         var topicId = req.params.id;
         //Validar los datos
         try{
@@ -136,7 +135,25 @@ var controller ={
             return res.status(400).send({status: 'error', message: erro}); 
         }
 
-        return res.status(200).send({message: 'Esto es un metodo de update'});
+        //Montar un objeto json con los datos modificables
+        var update = {
+            title: params.title,
+            content: params.content,
+            code: params.code,
+            lang: params.lang
+        };
+        //Find and update del topic por id y por id de usuario
+        Topic.findByIdAndUpdate({_id: topicId, user: req.user.sub},update,{new:true}, (err, topicUpdated)=>{
+            if(err){
+                return res.status(400).send({status: "error",message:"No se ha podido actualizar el tema"});
+            }
+            if(!topicUpdated){
+                return res.status(400).send({status: "error",message:"No existe el tema o no es tuyo"});
+            }
+            return res.status(200).send({status: 'success',  topic: topicUpdated});
+        });
+
+        
     }
 }
 
