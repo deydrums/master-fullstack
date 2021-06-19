@@ -85,6 +85,21 @@ var controller ={
         //     }
         //     return res.status(200).send({status: 'success', topics, page,options});
         // });
+    },
+
+    getMyTopicsByUser: function(req, res){
+        //Conseguir el id del usuario de la url
+        var userId = req.params.user;
+        //Find con la condicion de usuarios
+        Topic.find({user: userId}).sort([['date','descending']]).exec((err,topics)=>{
+            if(err){    
+                return res.status(404).send({status: 'error', message: 'Error en la peticion.'});
+            }
+            if(!topics || topics == ''){
+                return res.status(404).send({status: 'error', message: 'No se han encontrado temas.'});
+            }
+            return res.status(200).send({status: 'success', topics});
+        });
     }
 }
 
