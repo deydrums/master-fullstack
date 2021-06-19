@@ -47,7 +47,34 @@ var controller ={
 
     },
     update: function(req, res){
-        return res.status(200).send({status: 'success',  topic: 'Metodo de actualizar comentarios'});
+
+        //Conseguir id del comentario que llega de la url
+        var commentId = req.params.commentId;
+        //Recoger datos y validar
+        var params = req.body;
+
+        //Validar los datos
+        try{
+            var validate_content = !validator.isEmpty(params.content);
+        }catch(e){
+            return res.status(400).send({status: "error",message:"Faltan datos para enviar"});
+        }
+        var erro = "Verifica que el contenido sea correcto.";
+        if(!validate_content){
+            return res.status(400).send({status: 'error', message: erro}); 
+        }
+        //Find and update de subdocumentos
+        Topic.findOneAndUpdate({"comments._id": commentId, "user": req.user.sub},{"$set":{"comments.$.content": params.content}},{new:true},(err, topicUpdated)=>{
+            if(err) {
+                return res.status(400).send({status: 'error', message: 'Error al actualizar el comentario'}); 
+            }
+            if(!topicUpdated) {
+                return res.status(400).send({status: 'error', message: 'Error, el comentario no existe o no es tuyo'}); 
+            }
+            //Devolver una respuesta
+            return res.status(200).send({status: 'success',  topic: topicUpdated});  
+        });
+
     },
     delete: function(req, res){
         return res.status(200).send({status: 'success',  topic: 'Metodo de borrado de comentarios'});
