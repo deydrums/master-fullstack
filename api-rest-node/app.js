@@ -23,6 +23,7 @@ app.use((req, res, next) => {
     next();
 });
 
+
 //Reescribir rutas
 app.use('/api', user_routes);
 app.use('/api', topic_routes);
