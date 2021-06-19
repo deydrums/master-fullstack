@@ -82,7 +82,38 @@ var controller ={
 
     },
     delete: function(req, res){
-        return res.status(200).send({status: 'success',  topic: 'Metodo de borrado de comentarios'});
+        //Sacar el id del topic y del comentario
+        var topicId = req.params.topicId;
+        var commentId = req.params.commentId;
+        //Buscar el topic
+        Topic.findById(topicId,(err, topic) => {
+            
+            if(err) {
+                return res.status(400).send({status: 'error', message: 'Error al borrar el comentario'}); 
+            }
+            if(!topic) {
+                return res.status(400).send({status: 'error', message: 'Error, el comentario no existe o no es tuyo'}); 
+            }
+            //Seleccionar el subdocumento (commentario)
+            var comment = topic.comments.id(commentId);
+            //Borrar el comentario
+            if(comment){
+                comment.remove();
+                //Guardar el topic
+                topic.save((err)=>{
+                    if(err) {
+                        return res.status(400).send({status: 'error', message: 'Error al borrar el comentario'}); 
+                    }
+                        //Devolver resultado
+                        return res.status(200).send({status: 'success',  topic});
+                });
+
+            }else{
+                return res.status(400).send({status: 'error', message: 'Error, el comentario no existe'});   
+            }
+
+        });
+
     }
 };
 
