@@ -111,6 +111,32 @@ var controller ={
             }
             return res.status(200).send({status: 'success', topic});
         });
+    },
+
+    update: function(req, res){
+        //Recoger los parametros de la peticion
+        var params = req.body;
+        //Recoger los datos que llegan desde post 
+        var topicId = req.params.id;
+        //Validar los datos
+        try{
+            var validate_title = !validator.isEmpty(params.title);
+            var validate_content = !validator.isEmpty(params.content);
+            var validate_lang = !validator.isEmpty(params.lang);
+        }catch(e){
+            return res.status(400).send({status: "error",message:"Faltan datos para enviar"});
+        }
+        var erro = "Verifica que el ";
+        if(!validate_title){ erro += 'titulo, '}
+        if(!validate_content){erro += 'contendio, '}
+        if(!validate_lang){erro += 'lenguaje, '}
+        erro += 'sea correcto.' ;
+
+        if( !validate_title || !validate_content || !validate_lang){
+            return res.status(400).send({status: 'error', message: erro}); 
+        }
+
+        return res.status(200).send({message: 'Esto es un metodo de update'});
     }
 }
 
