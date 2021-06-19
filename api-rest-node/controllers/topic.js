@@ -100,6 +100,17 @@ var controller ={
             }
             return res.status(200).send({status: 'success', topics});
         });
+    },
+    
+    getTopic: function(req, res) {
+        var topicId = req.params.id;
+
+        Topic.findById(topicId).populate('user').exec((err,topic)=>{
+            if(err || !topic){
+                return res.status(404).send({status: 'error', message: 'No se han encontrado el tema.'});
+            }
+            return res.status(200).send({status: 'success', topic});
+        });
     }
 }
 
