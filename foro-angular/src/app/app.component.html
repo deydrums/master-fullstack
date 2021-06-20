@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" [routerLink]="['/inicio']">
       <img src="../assets/img/dg-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
       ForoAngular
     </a>
@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+          <a class="nav-link active" aria-current="page" [routerLink]="['/inicio']">Inicio</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Ver temas</a>
