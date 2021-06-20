@@ -28,10 +28,10 @@
       <ul class="navbar-nav navbar-right mb-2 mb-lg-0">
 
         <li class="nav-item">
-          <a class="nav-link" href="#">Registrarse</a>
+          <a class="nav-link" [routerLink]="['/register']" >Registrarse</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Entrar</a>
+          <a class="nav-link" [routerLink]="['/login']" >Entrar</a>
         </li>
 
         
@@ -52,4 +52,4 @@
   </div>
 </nav>
 
-<login></login>
+<router-outlet></router-outlet>
