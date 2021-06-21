@@ -10,13 +10,15 @@ import { HomeComponent } from './components/home/home.component';
 import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
