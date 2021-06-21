@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { routing, appRoutingProviders } from './app.routing';
 
+import { PanelModule } from './panel/panel.module';
+
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
@@ -24,18 +26,19 @@ import { ListComponent } from './panel/components/list/list.component';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    UserEditComponent,
-    MainComponent,
-    AddComponent,
-    EditComponent,
-    ListComponent
+    UserEditComponent
+    // MainComponent,
+    // AddComponent,
+    // EditComponent,
+    // ListComponent
   ],
   imports: [
     BrowserModule,
     routing,
     FormsModule,
     HttpClientModule,
-    AngularFileUploaderModule
+    AngularFileUploaderModule,
+    PanelModule
   ],
   providers: [
     appRoutingProviders

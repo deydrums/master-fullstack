@@ -27,4 +27,4 @@ const panelRoutes: Routes = [
         RouterModule
     ]
 })
-export class PanelRoutesModule{ }
+export class PanelRoutingModule{ }
