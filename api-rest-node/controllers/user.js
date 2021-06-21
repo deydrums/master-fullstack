@@ -131,7 +131,7 @@ var controller = {
                 return res.status(500).send({message: 'Error al intentar identificarse'});
             }
             if(!user) {
-                return res.status(404).send({message: 'El usuario no existe.'});
+                return res.status(404).send({message: 'El usuario con el email ingresado no existe.'});
             }
             //Si lo encuentra
             //Comprobar la contraseña (Cuincidencia con email y password)
@@ -140,15 +140,15 @@ var controller = {
                 if(check){
                     //Generar token de jwt y devolverlo
                     if(params.gettoken){
-                        return res.status(200).send({status: 'success', token: jwt.createToken(user)});
+                        return res.status(200).send({status: 'success',message: 'Inicio exitoso, bienvenido(a).', token: jwt.createToken(user)});
                     }else{
                         //Limpiar el objeto
                         user.password = undefined;
                         //Devolver los datos
-                        return res.status(200).send({status: 'success', user});
+                        return res.status(200).send({status: 'success',message: 'Inicio exitoso, bienvenido(a).', user});
                     }
                 }else{
-                    return res.status(500).send({status: 'error', message: 'Credenciales invalidas  '});
+                    return res.status(500).send({status: 'error', message: 'Contraseña incorrecta, vuelve a intentarlo.  '});
                 }
 
             });

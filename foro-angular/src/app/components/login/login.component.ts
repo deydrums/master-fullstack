@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit {
   public page_title: string;
   public user: User;
   public message!: string;
-
+  public identity!:any;
+  public token!: any;
   constructor(
     private _userService: UserService
   ) { 
@@ -25,7 +26,50 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form:any){
-    console.log(this.user);
+    //Conseguir objeto compoleto del usuario logueado
+    this._userService.singup(this.user).subscribe(
+      response =>{
+        if(response.user && response.user._id){
+          //console.log(response);
+          this.status = 'success';
+          this.identity = response.user;
+          console.log(this.identity);
+          this.message = response.message;
+          //Conseguir el token del usuario identificado
+          this._userService.singup(this.user, true).subscribe(
+            response =>{
+              if(response.token){
+                //Guardar el token del usuario identificado
+                this.token = response.token;
+                //console.log(this.token);
+              }else{
+                this.status = 'error';
+                this.message = 'Ha ocurrido un error, intenta de nuevo.'
+              }
+            },
+            error => {
+              //console.log(<any>error);
+              this.message = error.error.message;
+              this.status = 'error';
+            }
+          );
+
+
+
+
+
+
+        }else{
+          this.status = 'error';
+          this.message = 'Ha ocurrido un error, intenta de nuevo.'
+        }
+      },
+      error => {
+        //console.log(<any>error);
+        this.message = error.error.message;
+        this.status = 'error';
+      }
+    );
   }
 
 }
