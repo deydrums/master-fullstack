@@ -31,7 +31,7 @@
     <div class="form-group mt-5">
         <div class="content-avatar">
             <label for="image">Foto de perfil</label>
-               <!-- <img src="{{url + 'user/avatar/'+ identity.image}}" alt="" class="avatar" *ngIf="identity && identity.image" > -->
+               <img src="{{url + 'avatar/'+ identity.image}}" alt="" class="avatar" *ngIf="identity && identity.image" >
 
                <angular-file-uploader class="foto"
                [config]="afuConfig"
