@@ -9,8 +9,10 @@ import { UserService } from '../../services/user.service';
   providers: [UserService]
 })
 export class RegisterComponent implements OnInit {
+  public status!: string;
   public page_title: string;
   public user: User;
+  public message!: string;
   constructor(
     private _userService: UserService
   ) {
@@ -23,7 +25,25 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(form:any): void{
-    console.log(this.user);
+    this._userService.register(this.user).subscribe(
+      response => {
+        if(response.user && response.user._id){
+          this.status = 'success';
+          this.message = response.message;
+          //console.log(this.message);
+          //console.log(response);
+          form.reset();
+        }else{
+          this.status = 'error';
+          this.message = 'Ha ocurrido un error, intenta de nuevo.';
+        }
+      },
+      error => {
+        //console.log(<any>error);
+        this.message = error.error.message;
+        this.status = 'error';
+      }
+    );
   }
 
 }
