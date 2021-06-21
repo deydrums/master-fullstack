@@ -21,12 +21,16 @@ export class AddComponent implements OnInit {
     private _route: ActivatedRoute
   ) { 
     this.page_title = "Crear nuevo tema";
-    this.topic = new Topic('','','','','','',this.identity._id,null);
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
+    this.topic = new Topic('','','','','','',this.identity._id,null);
   }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(form:any){
+    console.log(this.topic);
   }
 
 }

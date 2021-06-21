@@ -109,7 +109,7 @@
 }
 
 div.content {
-  margin-left: 300px;
+  margin-left: 350px;
   padding: 1px 16px;
   height: 1000px;
 }
@@ -121,7 +121,10 @@ div.content {
     position: relative;
   }
   .sidebar a {float: left;}
-  div.content {margin-left: 0;}
+  div.content {
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 400px) {
