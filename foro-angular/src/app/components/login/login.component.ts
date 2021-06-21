@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from '../../services/user.service';
-
+import { Router, ActivatedRoute, Params } from '@angular/router';
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
@@ -16,7 +16,9 @@ export class LoginComponent implements OnInit {
   public identity!:any;
   public token!: any;
   constructor(
-    private _userService: UserService
+    private _userService: UserService,
+    private _router: Router,
+    private _route: ActivatedRoute
   ) { 
     this.page_title = "Iniciar sesión";
     this.user = new User('', '', '', '','','','ROLE_USER');
@@ -30,17 +32,18 @@ export class LoginComponent implements OnInit {
     this._userService.singup(this.user).subscribe(
       response =>{
         if(response.user && response.user._id){
-          //console.log(response);
-          this.status = 'success';
           this.identity = response.user;
-          console.log(this.identity);
-          this.message = response.message;
+          localStorage.setItem('identity',JSON.stringify(this.identity));
           //Conseguir el token del usuario identificado
           this._userService.singup(this.user, true).subscribe(
             response =>{
               if(response.token){
                 //Guardar el token del usuario identificado
                 this.token = response.token;
+                localStorage.setItem('token',JSON.stringify(this.token));
+                this.status = 'success';
+                this.message = response.message;
+                this._router.navigate(['/inicio']);
                 //console.log(this.token);
               }else{
                 this.status = 'error';
