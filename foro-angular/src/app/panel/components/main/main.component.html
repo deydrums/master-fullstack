@@ -1,2 +1,11 @@
-<p>main works!</p>
-<router-outlet></router-outlet>
+
+<div class="sidebar">
+    <a class="active" [routerLink]="['/panel']">Panel de usuario</a>
+    <a [routerLink]="['listado']">Mis temas</a>
+    <a [routerLink]="['crear']">Crear tema</a>
+    <a [routerLink]="['/ajustes']">Ajustes</a>
+  </div>
+  
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
