@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(form:any): void{
-
+    console.log(this.user);
   }
 
 }
