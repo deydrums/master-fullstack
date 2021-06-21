@@ -13,6 +13,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 import { AngularFileUploaderModule } from "angular-file-uploader";
+import { MainComponent } from './panel/components/main/main.component';
+import { AddComponent } from './panel/components/add/add.component';
+import { EditComponent } from './panel/components/edit/edit.component';
+import { ListComponent } from './panel/components/list/list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import { AngularFileUploaderModule } from "angular-file-uploader";
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    UserEditComponent
+    UserEditComponent,
+    MainComponent,
+    AddComponent,
+    EditComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
