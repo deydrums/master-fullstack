@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
+
 
 @Component({
   selector: 'register',
@@ -6,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-  constructor() { }
+  public page_title: string;
+  public user: User;
+  constructor() {
+    this.page_title = "Registrate";
+    // id , name , surname, email, password, image, rule
+    this.user = new User('','','','','','','');
+   }
 
   ngOnInit(): void {
   }
