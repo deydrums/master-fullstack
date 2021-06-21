@@ -62,7 +62,22 @@ export class UserEditComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit(form:any): void{
-    console.log(this.user);
+    this._userService.update(this.user).subscribe(
+      response =>{
+        if(!response.user){
+          this.status = 'error';
+          this.message = "Ha ocurrido un error, intenta de nuevo";
+        }else{
+          this.status = 'success';
+          localStorage.setItem('identity',JSON.stringify(this.user));
+          this.message = response.message;
+        }
+      },
+      error =>{
+        this.status = 'error';
+        this.message = error.error.message;
+      }
+    );
   }
 
   avatarUpload(data:any): void {
