@@ -29,6 +29,22 @@ export class ListComponent implements OnInit {
   } 
 
   ngOnInit(): void {
+    console.log(this.getTopics());
+  }
+
+  getTopics(){
+    var userId = this.identity._id;
+    this._topicService.getTopicsByUser(userId).subscribe(
+      response => {
+        if(response.topics){
+          console.log(response.topics);
+          this.topics = response.topics;
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
   }
 
 }

@@ -21,4 +21,9 @@ export class TopicService {
         return this._http.post(this.url+'topic', params, {headers:headers});
     }
 
+    getTopicsByUser(userId:any): Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+        return this._http.get(this.url+'user-topics/'+userId, {headers:headers}); 
+    }
+
 }
