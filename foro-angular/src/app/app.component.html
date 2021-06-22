@@ -18,10 +18,10 @@
           <a class="nav-link" [routerLink]="['/temas']">Ver temas</a>
         </li>
         <li class="nav-item" *ngIf="identity && identity.name">
-          <a class="nav-link" href="#">Usuarios</a>
+          <a class="nav-link" [routerLink]="['/usuarios']">Usuarios</a>
         </li>
         <li class="nav-item" *ngIf="identity && identity.name">
-          <a class="nav-link" href="#">Crear temas</a>
+          <a class="nav-link" [routerLink]="['/panel/crear']">Crear temas</a>
         </li>
       </ul>
       <form class="d-flex">
