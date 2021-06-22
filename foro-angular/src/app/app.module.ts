@@ -20,6 +20,7 @@ import { AddComponent } from './panel/components/add/add.component';
 import { EditComponent } from './panel/components/edit/edit.component';
 import { ListComponent } from './panel/components/list/list.component';
 import { TopicsComponent } from './components/topics/topics.component';
+import { TopicDetailComponent } from './components/topic-detail/topic-detail.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { TopicsComponent } from './components/topics/topics.component';
     LoginComponent,
     HomeComponent,
     UserEditComponent,
-    TopicsComponent
+    TopicsComponent,
+    TopicDetailComponent
     // MainComponent,
     // AddComponent,
     // EditComponent,
