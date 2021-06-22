@@ -11,12 +11,3 @@ if (environment.production) {
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
 
-  var btns = document.querySelectorAll(".btnc");
-  console.log(btns.length);
-for (const key in btns) {
-  if (Object.prototype.hasOwnProperty.call(btns, key)) {
-    const element = btns[key];
-    console.log(element);
-    alert(element);
-  }
-}

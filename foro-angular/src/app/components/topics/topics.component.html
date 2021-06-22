@@ -23,4 +23,21 @@
       </div>
 
       <!--Navegacion de paginacion-->
+
+        <ul class="pagination justify-content-center mt-4">
+          <li class="page-item">
+            <a class="page-link" [routerLink]="['/temas/',prev_page]">&laquo; Anterior</a>
+          </li>
+          <!-- <li class="page-item" aria-current="page" *ngFor="let num of number_pages">
+            <a class="page-link" [routerLink]="['/temas/',num]">{{num}}</a>
+          </li> -->
+          <li class="page-item">
+              <span class="page-link">{{apage}}</span>
+          </li>
+          <li class="page-item">
+            <a class="page-link" [routerLink]="['/temas/',next_page]">Siguiente &raquo;</a>
+          </li>
+        </ul>
+
+
 </div>
