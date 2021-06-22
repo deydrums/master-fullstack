@@ -26,7 +26,7 @@ import { TopicDetailComponent } from './components/topic-detail/topic-detail.com
 
 import { UserService } from './services/user.service';
 import { UserGuard } from './services/user.guard';
-
+import { NoIdentityGuard } from './services/no.identity.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +54,8 @@ import { UserGuard } from './services/user.guard';
   providers: [
     appRoutingProviders,
     UserService,
-    UserGuard
+    UserGuard,
+    NoIdentityGuard
   ],
   bootstrap: [AppComponent]
 })

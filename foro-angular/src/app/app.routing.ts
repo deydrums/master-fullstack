@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import {ModuleWithProviders} from "@angular/core";
 
 import { UserGuard } from './services/user.guard';
+import { NoIdentityGuard } from './services/no.identity.guard';
 
 //Importar Componentes
 import { LoginComponent } from "./components/login/login.component";
@@ -14,8 +15,8 @@ import { TopicDetailComponent } from "./components/topic-detail/topic-detail.com
 //Array de rutas
 const appRoutes: Routes = [
     {path: "", component: HomeComponent},
-    {path: "login", component: LoginComponent},
-    {path: "register", component: RegisterComponent},
+    {path: "login",canActivate: [NoIdentityGuard], component: LoginComponent},
+    {path: "register", canActivate: [NoIdentityGuard],component: RegisterComponent},
     {path: "inicio", component: HomeComponent},
     {path: "ajustes", canActivate: [UserGuard], component: UserEditComponent},
     {path: "temas", component: TopicsComponent},
