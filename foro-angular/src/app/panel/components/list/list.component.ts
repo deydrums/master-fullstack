@@ -46,5 +46,7 @@ export class ListComponent implements OnInit {
       }
     );
   }
-
+  deleteTopic(id:any){
+    console.log(id);
+  }
 }
