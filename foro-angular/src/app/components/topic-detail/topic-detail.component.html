@@ -1,4 +1,14 @@
 <div class="p-5 rounded-lg m-3 text-center mb-0" *ngIf="topic">
     <h1 class="display-4" >{{topic.title}}</h1>
     <hr class="my-4 mb-0">
+    <span class="badge bg-success m-lg-2 mr-4">Lenguaje: {{topic.lang}}</span>
+    <span class="badge bg-primary m-lg-2">{{topic.user.name + ' ' + topic.user.surname}}</span>
+    <span class="badge bg-secondary m-lg-2">{{topic.date | amLocale: 'es' | amTimeAgo}}</span>
+    <div class="content-content mt-4 mb-4">
+        <p>{{topic.content}}</p>
+    </div>
+    <div class="content-code mt-4 mb-4">
+        <p>{{topic.code}}</p>
+    </div>
+    
 </div>
