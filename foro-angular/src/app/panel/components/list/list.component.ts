@@ -29,7 +29,7 @@ export class ListComponent implements OnInit {
   } 
 
   ngOnInit(): void {
-    console.log(this.getTopics());
+    this.getTopics();
   }
 
   getTopics(){
@@ -37,7 +37,7 @@ export class ListComponent implements OnInit {
     this._topicService.getTopicsByUser(userId).subscribe(
       response => {
         if(response.topics){
-          console.log(response.topics);
+          //console.log(response.topics);
           this.topics = response.topics;
         }
       },

@@ -35,6 +35,25 @@ export class EditComponent implements OnInit {
   }
 
   onSubmit(form: any): void {
+    var id = this.topic._id;
+    this._topicService.update(this.token, id, this.topic).subscribe(
+      response =>{
+        if(response.topic) {
+          this.status = 'success';
+          this.topic = response.topic;
+          this.message = response.message;
+        }else{
+          this.status = "error";
+          this.message = "Ha ocurrido un error, intenta de nuevo.";
+        }
+        console.log(response);
+      },
+      error =>{
+        console.log(<any>error);
+        this.status = "error";
+        this.message = error.error.message;
+      }
+    );
 
   }
 

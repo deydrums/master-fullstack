@@ -151,7 +151,7 @@ var controller ={
             if(!topicUpdated){
                 return res.status(400).send({status: "error",message:"No existe el tema o no es tuyo"});
             }
-            return res.status(200).send({status: 'success',  topic: topicUpdated});
+            return res.status(200).send({status: 'success', message:"Tema actualizado correctamente.",  topic: topicUpdated});
         });
 
         
