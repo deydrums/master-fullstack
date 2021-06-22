@@ -7,6 +7,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { HomeComponent } from "./components/home/home.component";
 import { UserEditComponent } from "./components/user-edit/user-edit.component";
+import { TopicsComponent } from "./components/topics/topics.component";
 //Array de rutas
 const appRoutes: Routes = [
     {path: "", component: HomeComponent},
@@ -14,6 +15,8 @@ const appRoutes: Routes = [
     {path: "register", component: RegisterComponent},
     {path: "inicio", component: HomeComponent},
     {path: "ajustes", component: UserEditComponent},
+    {path: "temas", component: TopicsComponent},
+    {path: "temas/:page", component: TopicsComponent},
     {path: "**", component: LoginComponent}
 ];
 //Exportar configuracion

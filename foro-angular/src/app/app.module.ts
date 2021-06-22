@@ -19,6 +19,7 @@ import { MainComponent } from './panel/components/main/main.component';
 import { AddComponent } from './panel/components/add/add.component';
 import { EditComponent } from './panel/components/edit/edit.component';
 import { ListComponent } from './panel/components/list/list.component';
+import { TopicsComponent } from './components/topics/topics.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ListComponent } from './panel/components/list/list.component';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    UserEditComponent
+    UserEditComponent,
+    TopicsComponent
     // MainComponent,
     // AddComponent,
     // EditComponent,
