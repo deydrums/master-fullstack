@@ -38,4 +38,24 @@
         </div>
         <input type="submit" value="Enviar" class="btn btn-primary mt-4 derecha"  [disabled]="!formComment.form.valid">
     </form>
+    <hr>
+
+    <div class="clearfix"></div>
+    <div class="row mt-5" *ngIf = "topic.comments">
+        <div class="list-group" id="list-tab" role="tablist">
+        
+          <a href="#" class="list-group-item list-group-item-action mb-3" data-bs-toggle="list" [routerLink]="['/tema/',topic._id]" *ngFor = "let comment of topic.comments">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{comment.user.name + ' ' + comment.user.surname}}</h5>
+                <small>{{comment.date | amLocale: 'es' | amTimeAgo}}</small>
+              </div>
+              <p class="mb-1">{{comment.content}}</p>
+              <!-- <small class="badge bg-primary">{{ topic.user.name + ' ' + topic.user.surname}}</small> -->
+          </a>
+      
+      
+      </div>
+    </div>
+
+
 </div>
