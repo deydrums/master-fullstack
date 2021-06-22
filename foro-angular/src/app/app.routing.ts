@@ -2,6 +2,8 @@
 import { Routes, RouterModule } from "@angular/router";
 import {ModuleWithProviders} from "@angular/core";
 
+import { UserGuard } from './services/user.guard';
+
 //Importar Componentes
 import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
@@ -15,7 +17,7 @@ const appRoutes: Routes = [
     {path: "login", component: LoginComponent},
     {path: "register", component: RegisterComponent},
     {path: "inicio", component: HomeComponent},
-    {path: "ajustes", component: UserEditComponent},
+    {path: "ajustes", canActivate: [UserGuard], component: UserEditComponent},
     {path: "temas", component: TopicsComponent},
     {path: "temas/:page", component: TopicsComponent},
     {path: "tema/:id", component: TopicDetailComponent},

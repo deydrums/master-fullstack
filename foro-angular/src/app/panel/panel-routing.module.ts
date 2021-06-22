@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserGuard } from '../services/user.guard';
 //Cargar los componentes
 import { MainComponent } from './components/main/main.component';
 import { AddComponent } from './components/add/add.component';
@@ -8,7 +9,7 @@ import { ListComponent } from './components/list/list.component';
 
 const panelRoutes: Routes = [
 
-    {path: "panel", component: MainComponent, children: [
+    {path: "panel", component: MainComponent,canActivate:[UserGuard], children: [
         {path: "",component: ListComponent},
         {path: "listado",component: ListComponent},
         {path: "crear",component: AddComponent},
