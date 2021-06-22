@@ -47,6 +47,14 @@ export class ListComponent implements OnInit {
     );
   }
   deleteTopic(id:any){
-    console.log(id);
+    this._topicService.deleteTopic(this.token, id).subscribe(
+      response => {
+        this.getTopics();
+        console.log(response);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
   }
 }
