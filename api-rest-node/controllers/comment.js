@@ -39,8 +39,16 @@ var controller ={
                 if(err){
                     return res.status(400).send({status: 'error', message: 'Error al guardar comentario'}); 
                 }
-                //Devolver una respuesta
-                return res.status(200).send({status: 'success', message: "Comentario agregado correctamente",  topic});
+
+                Topic.findById(topic._id).populate('user').populate('comments.user').exec((err,topic)=>{
+                    if(err || !topic){
+                        return res.status(404).send({status: 'error', message: 'No se han encontrado el tema.'});
+                    }
+                    //Devolver una respuesta
+                    return res.status(200).send({status: 'success', message: "Comentario agregado correctamente",  topic});
+                });
+
+               
             });
 
         });

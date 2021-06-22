@@ -41,7 +41,7 @@
     <hr>
 
     <div class="clearfix"></div>
-    <div class="row mt-5" *ngIf = "topic.comments">
+    <div class="row mt-5" *ngIf = "topic">
         <div class="list-group" id="list-tab" role="tablist">
         
           <a href="#" class="list-group-item list-group-item-action mb-3" data-bs-toggle="list" [routerLink]="['/tema/',topic._id]" *ngFor = "let comment of topic.comments">

@@ -105,7 +105,7 @@ var controller ={
     getTopic: function(req, res) {
         var topicId = req.params.id;
 
-        Topic.findById(topicId).populate('user').exec((err,topic)=>{
+        Topic.findById(topicId).populate('user').populate('comments.user').exec((err,topic)=>{
             if(err || !topic){
                 return res.status(404).send({status: 'error', message: 'No se han encontrado el tema.'});
             }
