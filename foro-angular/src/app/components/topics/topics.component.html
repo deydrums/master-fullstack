@@ -1,1 +1,26 @@
-<p>topics works!</p>
+<div class="p-5 rounded-lg m-3 text-center mb-0">
+    <h1 class="display-4">{{page_title}}</h1>
+    <p class="lead">Temas de todos los usuarios.</p>
+    <hr class="my-4 mb-0">
+</div>
+
+<div class="col-10 m-auto">
+
+    <div class="row">
+          <div class="list-group" id="list-tab" role="tablist">
+          
+            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="list" [routerLink]="['/temas']" *ngFor ="let topic of topics">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{topic.title}}</h5>
+                  <small>{{topic.date | amLocale: 'es' | amTimeAgo}}</small>
+                </div>
+                <p class="mb-1">Lenguaje: {{topic.lang}}</p>
+                <small class="badge bg-primary">{{ topic.user.name + ' ' + topic.user.surname}}</small>
+            </a>
+        
+        
+        </div>
+      </div>
+
+      <!--Navegacion de paginacion-->
+</div>
