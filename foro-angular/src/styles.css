@@ -126,7 +126,8 @@ div.content {
     margin-left: 0;
     width: 100%;
   }
-  .content-code{
+
+  .content-detail{
     width: 100% !important;
   }
 }

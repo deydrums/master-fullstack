@@ -1,14 +1,14 @@
-<div class="p-5 rounded-lg m-3 text-center mb-0" *ngIf="topic">
+<div class=" rounded-lg m-3 text-center mb-0 " *ngIf="topic">
     <h1 class="display-4" >{{topic.title}}</h1>
     <hr class="my-4 mb-0">
     <span class="badge bg-success m-lg-2 mr-4">Lenguaje: {{topic.lang}}</span>
     <span class="badge bg-primary m-lg-2">{{topic.user.name + ' ' + topic.user.surname}}</span>
     <span class="badge bg-secondary m-lg-2">{{topic.date | amLocale: 'es' | amTimeAgo}}</span>
-    <div class="content-content mt-4 mb-4">
+    <div class="content-detail mt-4 mb-4 text-justify col-7 m-auto">
         <p>{{topic.content}}</p>
     </div>
 
-    <div class="content-code mt-4 mb-4 text-justify col-7 m-auto">
+    <div class="content-detail mt-4 mb-4 text-justify col-7 m-auto">
         <p class="text-justify">
             <ngx-highlight-js lang="{{topic.lang}}" code="{{topic.code}}"></ngx-highlight-js>
         
@@ -41,7 +41,7 @@
     <hr>
 
     <div class="clearfix"></div>
-    <div class="row mt-5" *ngIf = "topic">
+    <div class="row mt-5 m-auto" *ngIf = "topic">
         <div class="list-group" id="list-tab" role="tablist">
         
           <a href="#" class="list-group-item list-group-item-action mb-3 active" data-bs-toggle="list" [routerLink]="['/tema/',topic._id]" *ngFor = "let comment of topic.comments">
