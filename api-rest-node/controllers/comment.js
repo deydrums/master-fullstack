@@ -113,7 +113,7 @@ var controller ={
                         return res.status(400).send({status: 'error', message: 'Error al borrar el comentario'}); 
                     }
                         //Devolver resultado
-                        return res.status(200).send({status: 'success',  topic});
+                        return res.status(200).send({status: 'success', message: "Comentario borrado correctamente", topic});
                 });
 
             }else{

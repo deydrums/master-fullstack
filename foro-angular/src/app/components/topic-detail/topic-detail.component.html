@@ -47,12 +47,16 @@
           <a href="#" class="list-group-item list-group-item-action mb-3 active" data-bs-toggle="list" [routerLink]="['/tema/',topic._id]" *ngFor = "let comment of topic.comments">
               <div class="d-flex w-100 justify-content-between">
                 <div class="user d-flex flex-row align-items-center"> 
-                    <img src="https://i.imgur.com/0LKZQYM.jpg" width="30" class="user-img rounded-circle m-2"> 
+                    <img src="{{url + 'avatar/' + comment.user.image}}" width="30" class="user-img rounded-circle m-2" *ngIf="comment.user.image"> 
                     <h5 class=" m-2">{{comment.user.name + ' ' + comment.user.surname}}</h5> 
                 </div> 
                 <small class="m-2">{{comment.date | amLocale: 'es' | amTimeAgo}}</small>
               </div>
               <p class="mb-1 mt-2">{{comment.content}}</p>
+              <div class="align-items-center float-right">
+                <button (click)="deleteComment(comment._id)" class="btn btn-sm btn-light float-right derecha" *ngIf="identity._id == comment.user._id">Eliminar</button>
+              </div>
+              
           </a>
       
       

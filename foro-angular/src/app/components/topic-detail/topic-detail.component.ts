@@ -6,6 +6,7 @@ import { Comment } from '../../models/comment';
 import { User } from '../../models/user';
 import { UserService } from 'src/app/services/user.service';
 import { CommentService } from 'src/app/services/comment.service';
+import { global } from 'src/app/services/global';
 @Component({
   selector: 'app-topic-detail',
   templateUrl: './topic-detail.component.html',
@@ -19,6 +20,7 @@ export class TopicDetailComponent implements OnInit {
   public token;
   public status!: string;
   public message!: string;
+  public url;
   constructor(
     private _topicService: TopicService,
     private _route: ActivatedRoute,
@@ -29,6 +31,7 @@ export class TopicDetailComponent implements OnInit {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.comment = new Comment('','','',this.identity._id);
+    this.url = global.url;
   }
 
   ngOnInit(): void {
@@ -66,6 +69,27 @@ export class TopicDetailComponent implements OnInit {
           this.message = response.message;
           this.status = 'success';
           form.reset();
+        }
+      },
+      error =>{
+        console.log(<any>error);
+        this.status = 'error';
+        this.message = error.error.message;
+      }
+    )
+  }
+
+  deleteComment(id:any) {
+    this._commentService.delete(this.token, this.topic._id, id).subscribe(
+      response =>{
+        if(!response.topic){
+          this.status = 'error';
+          this.message = 'Ha ocurrido un error, intenta de nuevo.';
+        }else{
+          this.topic = response.topic;
+          this.message = response.message;
+          this.status = 'success';
+          console.log(response);
         }
       },
       error =>{

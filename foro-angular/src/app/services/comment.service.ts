@@ -20,7 +20,7 @@ export class CommentService {
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set("Authorization",token);
         return this._http.post(this.url+'comment/topic/'+topicId, params, {headers:headers});
     }
-    deleteTopic(token:any, topicId:any, commentId:any): Observable<any>{
+    delete(token:any, topicId:any, commentId:any): Observable<any>{
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set("Authorization",token);
         return this._http.delete(this.url+'comment/'+topicId+'/'+commentId,{headers:headers});
     }
