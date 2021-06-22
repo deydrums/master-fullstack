@@ -16,6 +16,8 @@ export class ProfileComponent implements OnInit {
   public topics: Topic[] = [];
   public url: string;
   public page_title: string;
+  public message!: string;
+  public status!: string;
   constructor(
     private _userService: UserService,
     private _topicService: TopicService,
@@ -60,6 +62,8 @@ export class ProfileComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
+        this.status = "error";
+        this.message = error.error.message;
       }
     );
   };
