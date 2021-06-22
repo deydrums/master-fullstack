@@ -26,4 +26,8 @@ export class TopicService {
         return this._http.get(this.url+'user-topics/'+userId, {headers:headers}); 
     }
 
+    getTopic(id: string): Observable<any>{
+        return this._http.get(this.url+'topic/'+id);
+    }
+
 }
