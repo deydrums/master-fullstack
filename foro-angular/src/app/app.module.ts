@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { routing, appRoutingProviders } from './app.routing';
-
+import { MomentModule } from 'angular2-moment';
 import { PanelModule } from './panel/panel.module';
 
 import { AppComponent } from './app.component';
@@ -38,7 +38,8 @@ import { ListComponent } from './panel/components/list/list.component';
     FormsModule,
     HttpClientModule,
     AngularFileUploaderModule,
-    PanelModule
+    PanelModule,
+    MomentModule
   ],
   providers: [
     appRoutingProviders
