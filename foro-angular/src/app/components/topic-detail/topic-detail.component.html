@@ -8,12 +8,26 @@
         <p>{{topic.content}}</p>
     </div>
 
-    
+    <div class="content-code mt-4 mb-4 text-justify col-7 m-auto">
+        <p class="text-justify">
+            <ngx-highlight-js lang="{{topic.lang}}" code="{{topic.code}}"></ngx-highlight-js>
+        
+        </p>
+    </div>
 </div>
 
-<div class="content-code mt-4 mb-4 text-justify col-5 m-auto">
-    <p class="text-justify">
-        <ngx-highlight-js lang="{{topic.lang}}" code="{{topic.code}}"></ngx-highlight-js>
+<hr>
+
+<div id="comment-box" class="col-md-5 mx-sm-auto mt-lg-5 registro mb-0">
     
-    </p>
+    <form  #formComment = "ngForm" (ngSubmit) = "onSubmit(formComment)">
+        <h3>Comentarios</h3>
+        <hr>
+        <div class="form-group">
+            <label for="content">Titulo</label>
+            <input type="text" name="content" class="form-control" #content="ngModel" [(ngModel)]="comment.content" required>
+            <small *ngIf="!content.valid && content.touched" class="invalid-feedback d-block">El comentario no es valido</small>
+        </div>
+        <input type="submit" value="Enviar" class="btn btn-primary mt-4 derecha"  [disabled]="!formComment.form.valid">
+    </form>
 </div>

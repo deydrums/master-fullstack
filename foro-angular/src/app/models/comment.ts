@@ -1,4 +1,4 @@
-export class Topic{
+export class Comment{
     constructor(
         public _id:string,
         public content:string,

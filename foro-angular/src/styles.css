@@ -114,6 +114,7 @@ div.content {
   height: 100%;
 }
 
+
 @media screen and (max-width: 700px) {
   .sidebar {
     width: 100%;
