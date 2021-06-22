@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { routing, appRoutingProviders } from './app.routing';
 import { MomentModule } from 'angular2-moment';
 import { PanelModule } from './panel/panel.module';
+import { NgxHighlightJsModule } from '@nowzoo/ngx-highlight-js';
+
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -43,7 +45,8 @@ import { TopicDetailComponent } from './components/topic-detail/topic-detail.com
     HttpClientModule,
     AngularFileUploaderModule,
     PanelModule,
-    MomentModule
+    MomentModule,
+    NgxHighlightJsModule.forRoot()
   ],
   providers: [
     appRoutingProviders

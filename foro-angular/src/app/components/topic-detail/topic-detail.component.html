@@ -7,8 +7,13 @@
     <div class="content-content mt-4 mb-4">
         <p>{{topic.content}}</p>
     </div>
-    <div class="content-code mt-4 mb-4">
-        <p>{{topic.code}}</p>
-    </div>
+
     
+</div>
+
+<div class="content-code mt-4 mb-4 text-justify col-5 m-auto">
+    <p class="text-justify">
+        <ngx-highlight-js lang="{{topic.lang}}" code="{{topic.code}}"></ngx-highlight-js>
+    
+    </p>
 </div>
