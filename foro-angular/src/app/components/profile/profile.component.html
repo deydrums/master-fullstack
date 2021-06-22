@@ -1,39 +1,49 @@
-<div class="p-5 rounded-lg m-3 text-center mb-0" *ngIf ="user">
-    <div class="content-avatar">
-           <img src="{{url + 'avatar/'+ user.image}}" alt="" class="avatar" *ngIf="user && user.image" >  
-           <img src="../../../assets/img/noimage.png" alt="" class="avatar" *ngIf="user && !user.image" >  
+<div *ngIf="!user || !topics">
+    <div class="p-5 rounded-lg m-3 text-center mb-0">
+      <img src="../../../assets/img/loading.gif" alt="">
+    </div>
+</div>
 
+<div *ngIf="user && topics">
+
+    <div class="p-5 rounded-lg m-3 text-center mb-0" *ngIf ="user">
+        <div class="content-avatar">
+            <img src="{{url + 'avatar/'+ user.image}}" alt="" class="avatar" *ngIf="user && user.image" >  
+            <img src="../../../assets/img/noimage.png" alt="" class="avatar" *ngIf="user && !user.image" >  
+
+        </div>
+
+        <h1 class="display-4">{{user.name + ' ' + user.surname}}</h1>
+        <p class="lead">{{user.email}}</p>
+        <hr class="my-4 mb-0">
     </div>
 
-    <h1 class="display-4">{{user.name + ' ' + user.surname}}</h1>
-    <p class="lead">{{user.email}}</p>
-    <hr class="my-4 mb-0">
-</div>
 
+    <div class="alert alert-danger col-md-5 m-auto" *ngIf="status === 'error'">
+        {{message}}
+    </div>
 
-<div class="alert alert-danger col-md-5 m-auto" *ngIf="status === 'error'">
-    {{message}}
-</div>
+    <div class="col-10 m-auto">
 
-<div class="col-10 m-auto">
-
-    <div class="row">
-          <div class="list-group" id="list-tab" role="tablist">
-          
-            <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="list" [routerLink]="['/tema/',topic._id]" *ngFor ="let topic of topics">
-                <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">{{topic.title}}</h5>
-                  <small>{{topic.date | amLocale: 'es' | amTimeAgo}}</small>
-                </div>
-                <p class="mb-1">Lenguaje: {{topic.lang}}</p>
-                <small class="badge bg-primary">{{user.name + ' ' +user.surname}}</small>
-            </a>
-        
-        
+        <div class="row">
+            <div class="list-group" id="list-tab" role="tablist">
+            
+                <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="list" [routerLink]="['/tema/',topic._id]" *ngFor ="let topic of topics">
+                    <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{topic.title}}</h5>
+                    <small>{{topic.date | amLocale: 'es' | amTimeAgo}}</small>
+                    </div>
+                    <p class="mb-1">Lenguaje: {{topic.lang}}</p>
+                    <small class="badge bg-primary">{{user.name + ' ' +user.surname}}</small>
+                </a>
+            
+            
+            </div>
         </div>
-      </div>
 
 
 
+
+    </div>
 
 </div>
