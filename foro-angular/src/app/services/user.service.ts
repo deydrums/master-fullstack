@@ -62,4 +62,12 @@ export class UserService {
         return this._http.put(this.url +'user/update', params, {headers:headers});
     }
 
+    getUsers():Observable<any>{
+        return this._http.get(this.url +'users');
+    }
+
+    getUser(userId:any):Observable<any>{
+        return this._http.get(this.url +'users/'+userId);
+    }
+
 }
