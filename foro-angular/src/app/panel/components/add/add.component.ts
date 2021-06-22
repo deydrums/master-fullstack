@@ -16,6 +16,7 @@ export class AddComponent implements OnInit {
   public identity: any;
   public token: string;
   public status: any;
+  public message!: string;
   constructor(
     private _userService: UserService,
     private _router: Router,
@@ -26,14 +27,30 @@ export class AddComponent implements OnInit {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
     this.topic = new Topic('','','','','','',this.identity._id,null);
-  }
+  } 
 
   ngOnInit(): void {
-    console.log(this._topicService.test());
   }
 
   onSubmit(form:any){
-    console.log(this.topic);
+    this._topicService.addTopic(this.token,this.topic).subscribe(
+      response => {
+        if(response.topic){
+          console.log(response);
+          this.status = 'success';
+          this.message = response.message;
+          this.topic = response.topic;
+          this._router.navigate(['/panel']);
+        }else{
+          this.status = 'error';
+          this.message = 'Ha ocurrido un error, intenta de nuevo';
+        }
+      },
+      error => {
+        this.message = 'Ha ocurrido un error, intenta de nuevo';
+        this.status = 'error';
+      }
+    )
   }
 
 }

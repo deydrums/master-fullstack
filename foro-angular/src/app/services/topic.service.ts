@@ -15,12 +15,10 @@ export class TopicService {
     this.url = global.url;
     }
 
-
-
-
-
-    test(){
-        return "Topic Service";
+    addTopic(token:any,topic:any): Observable<any>{
+        let params = JSON.stringify(topic);
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set("Authorization",token);
+        return this._http.post(this.url+'topic', params, {headers:headers});
     }
 
 }

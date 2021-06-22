@@ -4,6 +4,13 @@
     <hr class="my-4">
 </div>
 
+<div class="alert alert-success col-md-5 m-auto" *ngIf="status === 'success'">
+    {{message}}
+</div>
+<div class="alert alert-danger col-md-5 m-auto" *ngIf="status === 'error'">
+    {{message}}
+</div>
+
 <form class="col-md-5 mx-sm-auto mt-lg-5 registro mb-0" #addTopic = "ngForm" (ngSubmit) = "onSubmit(addTopic)">
     <div class="form-group">
         <label for="title">Titulo</label>
