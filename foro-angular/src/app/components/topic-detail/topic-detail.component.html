@@ -19,12 +19,20 @@
 <hr>
 
 <div id="comment-box" class="col-md-5 mx-sm-auto mt-lg-5 registro mb-0">
+
+
     
     <form  #formComment = "ngForm" (ngSubmit) = "onSubmit(formComment)">
         <h3>Comentarios</h3>
+        <div class="alert alert-success m-auto" *ngIf="status === 'success'">
+            {{message}}
+        </div>
+        <div class="alert alert-danger m-auto" *ngIf="status === 'error'">
+            {{message}}
+        </div>
         <hr>
         <div class="form-group">
-            <label for="content">Titulo</label>
+            <label for="content">Agregar comentario</label>
             <input type="text" name="content" class="form-control" #content="ngModel" [(ngModel)]="comment.content" required>
             <small *ngIf="!content.valid && content.touched" class="invalid-feedback d-block">El comentario no es valido</small>
         </div>

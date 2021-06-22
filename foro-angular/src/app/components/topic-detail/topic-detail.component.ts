@@ -5,12 +5,12 @@ import { TopicService } from 'src/app/services/topic.service';
 import { Comment } from '../../models/comment';
 import { User } from '../../models/user';
 import { UserService } from 'src/app/services/user.service';
-
+import { CommentService } from 'src/app/services/comment.service';
 @Component({
   selector: 'app-topic-detail',
   templateUrl: './topic-detail.component.html',
   styleUrls: ['./topic-detail.component.css'],
-  providers: [TopicService, UserService]
+  providers: [TopicService, UserService, CommentService]
 })
 export class TopicDetailComponent implements OnInit {
   public topic!: Topic;
@@ -18,11 +18,13 @@ export class TopicDetailComponent implements OnInit {
   public identity;
   public token;
   public status!: string;
+  public message!: string;
   constructor(
     private _topicService: TopicService,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _userService: UserService
+    private _userService: UserService,
+    private _commentService: CommentService
   ) { 
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
@@ -54,7 +56,24 @@ export class TopicDetailComponent implements OnInit {
   }
 
   onSubmit(form:any):void{
-    console.log(this.comment);
+    this._commentService.add(this.token, this.comment, this.topic._id).subscribe(
+      response =>{
+        if(!response.topic){
+          this.status = 'error';
+          this.message = 'Ha ocurrido un error, intenta de nuevo.';
+        }else{
+          this.topic = response.topic;
+          this.message = response.message;
+          this.status = 'success';
+          form.reset();
+        }
+      },
+      error =>{
+        console.log(<any>error);
+        this.status = 'error';
+        this.message = error.error.message;
+      }
+    )
   }
 }
 

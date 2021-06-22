@@ -40,7 +40,7 @@ var controller ={
                     return res.status(400).send({status: 'error', message: 'Error al guardar comentario'}); 
                 }
                 //Devolver una respuesta
-                return res.status(200).send({status: 'success',  topic});
+                return res.status(200).send({status: 'success', message: "Comentario agregado correctamente",  topic});
             });
 
         });
