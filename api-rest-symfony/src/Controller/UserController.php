@@ -80,13 +80,24 @@ class UserController extends AbstractController
                 //Cifrar la contraseña
                 $pwd = hash('sha256',$password);
                 $user->setPassword($pwd);
-
                 //Comprobar si el usuario existe
+                $doctrine = $this->getDoctrine();
+                $em = $doctrine->getManager();
+                $user_repo = $doctrine->getRepository(User::class);
+                $isset_user = $user_repo->findBy(array(
+                    'email' => $email
+                ));
 
-                //Si no existe, guardarlo en la bbdd
-
-                //Hacer respuesta
-                $data =['code' => '200','status' => 'success','message' => 'Usuario creado',$user];
+                if(count($isset_user) == 0) {
+                    //Si no existe, guardarlo en la bbdd
+                    $em->persist($user);
+                    $em->flush();
+                    //Hacer respuesta
+                    $data =['code' => '200','status' => 'success','message' => 'Usuario creado exitosamente.','user'=>$user];
+                }else{
+                    $data =['code' => '400', 'status' => 'error','message' => 'El email ya ha sido registrado anteriormente.'];
+                }
+                
             }else{
                 $data =['code' => '400', 'status' => 'error','message' => 'Validacion de datos incorrecta.'];
             }
@@ -94,6 +105,6 @@ class UserController extends AbstractController
             
         }
 
-        return new JsonResponse($data);
+        return $this->resjson($data);
     }
 }
