@@ -182,7 +182,7 @@ var controller ={
             {"content": {"$regex": searchString, "$options": "i"}},
             {"code": {"$regex": searchString, "$options": "i"}},
             {"lang": {"$regex": searchString, "$options": "i"}}
-        ]}).sort([['date', 'descending']]).exec((err, topics) => {
+        ]}).populate('user').sort([['date', 'descending']]).exec((err, topics) => {
             if(err) {
                 return res.status(400).send({status: "error",message:"Error al buscar"});
             }
