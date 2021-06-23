@@ -150,4 +150,15 @@ class UserController extends AbstractController
 
         return $this->resjson($data);
     }
+
+    public function edit(Request $request){
+        //Recoger la cabecera de autenticacion 
+
+        //Crear un metodo para comprobar si el token es correcto
+
+        //Si es correcto, hacer la actualizacion de
+
+        $data =['code' => '200','status' => 'success','message' => 'Datos actualizados exitosamente.'];
+        return $this->resjson($data);
+    }
 }
