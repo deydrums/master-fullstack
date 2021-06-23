@@ -131,9 +131,15 @@ class UserController extends AbstractController
                 //Cifrar la contraseña
                 $pwd = hash('sha256',$password);
                 //Si todo es valido, llamaremos a un servicio para identificar al usuario (jwt, token o un objeto)
-                
+                if($gettoken){
+                    $signup = $jwt_auth->signup($email, $pwd, $gettoken);
+                    $data =['code' => '200','status' => 'success','message' => 'Bienvenido de nuevo.','token' => $signup];
+                }else{
+                    $signup = $jwt_auth->signup($email, $pwd);
+                    $data =['code' => '200','status' => 'success','message' => 'Bienvenido de nuevo.','user' => $signup];
+                }
                 //Si nos devuelve bien los datos, respuesta
-                $data =['code' => '200','status' => 'success','message' => 'Bienvenido de nuevo.',$jwt_auth ->signup()];
+                
             }else{
                 $data =['code' => '400', 'status' => 'error','message' => 'Validacion de datos incorrecta.'];
             }
