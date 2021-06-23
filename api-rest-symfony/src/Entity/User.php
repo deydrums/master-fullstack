@@ -65,7 +65,7 @@ class User
     private $createdAt = 'CURRENT_TIMESTAMP';
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Videos", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="user")
      */
     private $videos;
 
