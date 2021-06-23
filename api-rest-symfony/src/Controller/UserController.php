@@ -44,4 +44,29 @@ class UserController extends AbstractController
         //die();
         return $this->resjson($videos);
     }
+
+    public function create(Request $request){
+        //Recoger los datos por post
+
+        //Decodificar el json
+
+        //Hacer una respuesta por defecto
+        $data =[
+            'status' => 'success',
+            'message' => 'Usuario creado',
+            'code' => '200'
+        ];
+        //Comprobar y validar datos
+
+        //Si la validacion es correcta, crear el objeto del usuario
+
+        //Cifrar la contraseña
+
+        //Comprobar si el usuario existe
+
+        //Si no existe, guardarlo en la bbdd
+
+        //Hacer respuesta
+        return $this->resjson($data);
+    }
 }
