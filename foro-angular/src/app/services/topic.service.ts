@@ -48,4 +48,8 @@ export class TopicService {
     getTopicById(id:any):Observable<any>{
         return this._http.get(this.url +'topic/'+id);
     }
+
+    search(search:string):Observable<any>{
+        return this._http.get(this.url +'search/'+search);
+    }
 }
