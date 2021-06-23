@@ -24,3 +24,10 @@ updated_at      datetime DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT pk_videos PRIMARY KEY(id),
 CONSTRAINT fk_video_user FOREIGN KEY(user_id) REFERENCES users(id)
 )ENGINE=InnoDb;
+
+
+insert into videos values(null,2,"Que es full Stack","Que es desarrollar en fullstack","https://www.youtube.com/watch?v=xhmyHZUNQNU","important",CURDATE(),CURDATE());
+insert into videos values(null,2,"Que es illustrator","Que es diseñar en illustrator","https://www.youtube.com/watch?v=sekxanyTmGM&t=314s","important",CURDATE(),CURDATE());
+
+insert into users values(null,"admin","admin","admin@admin.com","admin1234","USER",CURDATE());
+insert into users values(null,"David","Garcia","dagarcia100@gmail.com","david1234","USER",CURDATE());
