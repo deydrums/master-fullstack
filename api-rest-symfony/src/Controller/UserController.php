@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Constraints\Email;
+use App\Services\JwtAuth;
 use App\Entity\User;
 use App\Entity\Video;
 
@@ -108,7 +109,7 @@ class UserController extends AbstractController
         return $this->resjson($data);
     }
 
-    public function login(request $request){
+    public function login(request $request, JwtAuth $jwt_auth){
         //Recoger los datos por post
         $json = $request->get('json',null);
         //Decodificar el json
@@ -130,9 +131,9 @@ class UserController extends AbstractController
                 //Cifrar la contraseña
                 $pwd = hash('sha256',$password);
                 //Si todo es valido, llamaremos a un servicio para identificar al usuario (jwt, token o un objeto)
-
+                
                 //Si nos devuelve bien los datos, respuesta
-                $data =['code' => '200','status' => 'success','message' => 'Bienvenido de nuevo.'];
+                $data =['code' => '200','status' => 'success','message' => 'Bienvenido de nuevo.',$jwt_auth ->signup()];
             }else{
                 $data =['code' => '400', 'status' => 'error','message' => 'Validacion de datos incorrecta.'];
             }
