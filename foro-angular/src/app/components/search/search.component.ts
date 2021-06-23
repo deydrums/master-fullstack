@@ -12,6 +12,8 @@ import { TopicService } from 'src/app/services/topic.service';
 export class SearchComponent implements OnInit {
   public page_title: string;
   public topics: Topic[] = [];
+  public message!: string;
+  public status!: string;
   constructor(
     private _topicService: TopicService,
     private _route: ActivatedRoute,
@@ -37,6 +39,8 @@ export class SearchComponent implements OnInit {
       },
       error =>{
         console.log(<any>error);
+        this.message = error.error.message;
+        this.status = 'error';
       }
     )
   }
