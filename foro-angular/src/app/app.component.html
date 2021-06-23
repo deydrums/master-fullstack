@@ -24,9 +24,9 @@
           <a class="nav-link" [routerLink]="['/panel/crear']">Crear temas</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="¿Que estas buscando?" aria-label="Search">
-        <button class="btn btn-outline-light" type="submit">Buscar</button>
+      <form class="d-flex" #searhForm = "ngForm">
+        <input class="form-control me-2" type="search" placeholder="¿Que estas buscando?" aria-label="Search" name = "busqueda" #busqueda="ngModel" [(ngModel)]="search">
+        <button class="btn btn-outline-light" (click)="goSearch()">Buscar</button>
       </form>
       <ul class="navbar-nav navbar-right mb-2 mb-lg-0">
 

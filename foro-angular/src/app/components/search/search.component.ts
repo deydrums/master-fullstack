@@ -14,6 +14,7 @@ export class SearchComponent implements OnInit {
   public topics: Topic[] = [];
   public message!: string;
   public status!: string;
+  public search!:any;
   constructor(
     private _topicService: TopicService,
     private _route: ActivatedRoute,
@@ -25,7 +26,8 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this._route.params.subscribe(params => {
       var search = params['search'];
-      this.page_title += search;
+      console.log(search);
+      this.search = search;
       this.getTopic(search);
     });
   }
@@ -41,6 +43,7 @@ export class SearchComponent implements OnInit {
         console.log(<any>error);
         this.message = error.error.message;
         this.status = 'error';
+        this.topics = [];
       }
     )
   }
