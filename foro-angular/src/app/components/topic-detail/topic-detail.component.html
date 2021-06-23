@@ -20,10 +20,10 @@
 
 <div id="comment-box" class="col-md-5 mx-sm-auto mt-lg-5 registro mb-0">
 
-
+    <h3>Comentarios</h3>
     
-    <form  #formComment = "ngForm" (ngSubmit) = "onSubmit(formComment)">
-        <h3>Comentarios</h3>
+    <form  #formComment = "ngForm" (ngSubmit) = "onSubmit(formComment)" *ngIf="identity && identity.name">
+        
         <div class="alert alert-success m-auto" *ngIf="status === 'success'">
             {{message}}
         </div>
