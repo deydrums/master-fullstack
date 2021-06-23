@@ -14,8 +14,8 @@
                   <h5 class="mb-1">{{user.name + ' ' + user.surname}}</h5>
                 </div> -->
                 <div class="user d-flex flex-row align-items-center"> 
-                    <img src="{{url+ 'avatar/' + user.image}}" width="60" class="user-img rounded-circle m-2" *ngIf="user.image"> 
-                    <img src="../../../assets/img/noimage.png" width="60" class="user-img rounded-circle m-2" *ngIf="!user.image"> 
+                    <img src="{{url+ 'avatar/' + user.image}}" class="avatar-m1 m-2" *ngIf="user.image"> 
+                    <img src="../../../assets/img/noimage.png" class="avatar-m1 m-2" *ngIf="!user.image"> 
                     <h5 class=" m-2">{{user.name + ' ' + user.surname}}</h5> 
                 </div> 
             </a>

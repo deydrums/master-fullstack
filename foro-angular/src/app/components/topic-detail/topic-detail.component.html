@@ -47,7 +47,8 @@
           <a href="#" class="list-group-item list-group-item-action mb-3 active" data-bs-toggle="list" [routerLink]="['/tema/',topic._id]" *ngFor = "let comment of topic.comments">
               <div class="d-flex w-100 justify-content-between">
                 <div class="user d-flex flex-row align-items-center"> 
-                    <img src="{{url + 'avatar/' + comment.user.image}}" width="30" class="user-img rounded-circle m-2" *ngIf="comment.user.image"> 
+                    <img src="{{url + 'avatar/' + comment.user.image}}" class="avatar-m2 m-2" *ngIf="comment.user.image"> 
+                    <img src="../../../assets/img/noimage.png" class="avatar-m2 m-2"  *ngIf="!comment.user.image"> 
                     <h5 class=" m-2">{{comment.user.name + ' ' + comment.user.surname}}</h5> 
                 </div> 
                 <small class="m-2">{{comment.date | amLocale: 'es' | amTimeAgo}}</small>

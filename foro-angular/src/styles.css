@@ -41,6 +41,28 @@
     justify-content: space-evenly;
     
   }
+  .avatar-m1{
+    display: block !important;
+    width: 60px;
+    max-width:60px;
+    height: 60px;
+    margin: 0 auto;
+    border-radius: 50%;
+    padding: 0.2rem;
+    object-fit: cover;
+    justify-content: space-evenly;
+  }
+  .avatar-m2{
+    display: block !important;
+    width: 50px;
+    max-width:50px;
+    height: 50px;
+    margin: 0 auto;
+    border-radius: 50%;
+    padding: 0.2rem;
+    object-fit: cover;
+    justify-content: space-evenly;
+  }
 
   .bar {
     align-items:flex-start !important;
