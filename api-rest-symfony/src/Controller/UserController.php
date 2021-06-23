@@ -109,18 +109,38 @@ class UserController extends AbstractController
     }
 
     public function login(request $request){
-        //Recibir los datos por post
+        //Recoger los datos por post
+        $json = $request->get('json',null);
+        //Decodificar el json
+        $params = json_decode($json);
 
-        //Array por defecto
-        $data =['code' => '200','status' => 'success','message' => 'Bienvenido de nuevo.'];
+        if($json == NULL || $json == ''){
+            $data =['code' => '400', 'status' => 'error','message' => 'Datos no enviados.'];
+        }else{
+            //Comprobar y validar datos
+            $email = (!empty($params->email)) ? $params -> email : null;
+            $password = (!empty($params->password)) ? $params -> password : null;
+            $gettoken = (!empty($params->gettoken)) ? $params -> gettoken : null;
 
-        //Comprobar y validar los datos
+            $validator = Validation::createValidator();
+            $validate_email = $validator->validate($email,[
+                new Email()
+            ]);
+            if(!empty($email) && count($validate_email)==0 && !empty($password)) {
+                //Cifrar la contraseña
+                $pwd = hash('sha256',$password);
+                //Si todo es valido, llamaremos a un servicio para identificar al usuario (jwt, token o un objeto)
 
-        //Cifrar la contraseña
+                //Si nos devuelve bien los datos, respuesta
+                $data =['code' => '200','status' => 'success','message' => 'Bienvenido de nuevo.'];
+            }else{
+                $data =['code' => '400', 'status' => 'error','message' => 'Validacion de datos incorrecta.'];
+            }
 
-        //Si todo es valido, llamaremos a un servicio para identificar al usuario (jwt, token o un objeto)
 
-        //Si nos devuelve bien los datos, respuesta
+        }
+
+
         return $this->resjson($data);
     }
 }
