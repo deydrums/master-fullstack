@@ -26,4 +26,27 @@ export class VideoService {
         let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
         return this._http.post(this.url+'video/new',params,{headers:headers});
     }
+    getVideos(token:any):Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
+        return this._http.get(this.url+'video/list',{headers:headers});
+    }
+
+    getVideo(token:any, id:any):Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
+        return this._http.get(this.url+'video/detail/'+id,{headers:headers});
+    }
+
+    update(video:any, token:any, id:any):Observable<any>{
+        let json = JSON.stringify(video);
+        let params = 'json='+json;
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
+        return this._http.put(this.url+'video/edit/'+id,params,{headers:headers});
+    }
+
+    delete(token:any, id:any):Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
+        return this._http.delete(this.url+'video/remove/'+id,{headers:headers});
+    }
+
+
 }
