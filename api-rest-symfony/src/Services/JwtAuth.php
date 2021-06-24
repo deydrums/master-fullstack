@@ -39,15 +39,15 @@ class JwtAuth{
             //Comprobar el flag gettoken, condicion
             if(!empty($gettoken)){
                 //Devolver los datos
-                $data = ['code' => '200','status' => 'success','message' => 'Bienvenido de nuevo.','token' => $jwt];
+                $data = ['code' => 200,'status' => 'success','message' => 'Bienvenido de nuevo.','token' => $jwt];
             }else{
                 $decoded = JWT::decode($jwt, $this->key, ['HS256']);
-                $data = ['code' => '200','status' => 'success','message' => 'Bienvenido de nuevo.','user' => $decoded];
+                $data = ['code' => 200,'status' => 'success','message' => 'Bienvenido de nuevo.','user' => $decoded];
             }
 
         
         }else{
-            $data = ['code' => '400','status' => 'error','message' => 'Email o/y password incorrectos'];
+            $data = ['code' => 400,'status' => 'error','message' => 'Email o/y password incorrectos'];
         }
 
         return $data;

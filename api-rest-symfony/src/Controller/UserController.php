@@ -59,7 +59,7 @@ class UserController extends AbstractController
 
         //Comprobar y validar datos
         if($json == NULL || $json == ''){
-            $data =['code' => '400', 'status' => 'error','message' => 'Datos no enviados.'];
+            $data =['code' => 400, 'status' => 'error','message' => 'Datos no enviados.'];
         }else{
             $name = (!empty($params->name)) ? $params -> name : null;
             $surname = (!empty($params->surname)) ? $params -> surname : null;
@@ -94,13 +94,13 @@ class UserController extends AbstractController
                     $em->persist($user);
                     $em->flush();
                     //Hacer respuesta
-                    $data =['code' => '200','status' => 'success','message' => 'Usuario creado exitosamente.','user'=>$user];
+                    $data =['code' => 200,'status' => 'success','message' => 'Usuario creado exitosamente.','user'=>$user];
                 }else{
-                    $data =['code' => '400', 'status' => 'error','message' => 'El email ya ha sido registrado anteriormente.'];
+                    $data =['code' => 400, 'status' => 'error','message' => 'El email ya ha sido registrado anteriormente.'];
                 }
                 
             }else{
-                $data =['code' => '400', 'status' => 'error','message' => 'Validacion de datos incorrecta.'];
+                $data =['code' => 400, 'status' => 'error','message' => 'Validacion de datos incorrecta.'];
             }
 
             
@@ -116,7 +116,7 @@ class UserController extends AbstractController
         $params = json_decode($json);
 
         if($json == NULL || $json == ''){
-            $data =['code' => '400', 'status' => 'error','message' => 'Datos no enviados.'];
+            $data =['code' => 400, 'status' => 'error','message' => 'Datos no enviados.'];
         }else{
             //Comprobar y validar datos
             $email = (!empty($params->email)) ? $params -> email : null;
@@ -141,7 +141,7 @@ class UserController extends AbstractController
                 //Si nos devuelve bien los datos, respuesta
                 
             }else{
-                $data =['code' => '400', 'status' => 'error','message' => 'Validacion de datos incorrecta.'];
+                $data =['code' => 400, 'status' => 'error','message' => 'Validacion de datos incorrecta.'];
             }
 
 
@@ -173,15 +173,52 @@ class UserController extends AbstractController
             $json = $request->get('json',null);
             $params = json_decode($json);
             //Comprobar y validar los datos
-            if(!empty($json)){
 
+        //Comprobar y validar datos
+        if($json == NULL || $json == ''){
+            $data =['code' => 400, 'status' => 'error','message' => 'Datos no enviados.'];
+        }else{
+            $name = (!empty($params->name)) ? $params -> name : null;
+            $surname = (!empty($params->surname)) ? $params -> surname : null;
+            $email = (!empty($params->email)) ? $params -> email : null;
+
+            $validator = Validation::createValidator();
+            $validate_email = $validator->validate($email,[
+                new Email()
+            ]);
+            if(!empty($email) && count($validate_email)==0 && !empty($name) && !empty($surname)) {
+                //Si la validacion es correcta, crear el objeto del usuario
+                $user->setName($name); 
+                $user->setSurname($surname);
+                $user->setEmail($email);
+
+                $isset_user = $user_repo->findBy(array(
+                    'email' => $email
+                ));
+
+                if(count($isset_user) == 0 || $identity->email == $email) {
+                    //Si no existe, guardarlo en la bbdd
+                    $em->persist($user);
+                    $em->flush();
+                    //Hacer respuesta
+                    $data =['code' => 200,'status' => 'success','message' => 'Datos actualizados exitosamente.','user'=>$user];
+                }else{
+                    $data =['code' => 400, 'status' => 'error','message' => 'El email ya ha sido registrado por otro usuario.'];
+                }
+                
+            }else{
+                $data =['code' => 400, 'status' => 'error','message' => 'Validacion de datos incorrecta.'];
             }
+
+            
+        }
+
             //Asignar nuevos datos al objeto del usuario
 
             //Comprobar duplicados
 
             //Guardar datos en la bbdd
-            $data =['code' => '200','status' => 'success','message' => 'Datos actualizados exitosamente.',$user];
+            //$data =['code' => '200','status' => 'success','message' => 'Datos actualizados exitosamente.',$user];
 
         }
 
