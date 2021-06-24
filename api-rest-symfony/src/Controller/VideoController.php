@@ -12,6 +12,8 @@ use App\Services\JwtAuth;
 use App\Entity\User;
 use App\Entity\Video;
 
+use Knp\Component\Pager\PaginatorInterface;
+
 class VideoController extends AbstractController
 {
     private function resjson($data){
@@ -99,25 +101,32 @@ class VideoController extends AbstractController
         return $this->resjson($data);
     }
 
-    public function videos(Request $request, JwtAuth $jwt_auth){
+    public function videos(Request $request, JwtAuth $jwt_auth, PaginatorInterface $paginator){
         //Recoger la cabecera de autenticacion
-
+        $token = $request->headers->get('Authorization');
         //Comprobar el token
-
+        $authCheck = $jwt_auth->checkToken($token);
         //Si es valido 
+        if(!$authCheck){
+            $data =['code' => 400,'error' => 'success','message' => 'No estas autenticado.'];
+        }else{
+            //Conseguir identidad del usuario
+            $identity = $jwt_auth->checkToken($token, true);
+            $em = $this->getDoctrine()->getManager();
+            //Hacer una consulta para paginar
+            $dql = "SELECT v FROM App\Entity\Video v WHERE v.user = {$identity->sub} ORDER BY v.id DESC";
+            $query = $em->createQuery($dql);
+            //Recoger el parametro page de la url
+            $page = $request->query->getInt('page', 1);
+            $items_per_page = 5;
+            //Invocar paginacion
+            $pagination = $paginator -> paginate($query, $page, $items_per_page);
+            $total = $pagination->getTotalItemCount();
+            //Preparar array de datos para devolver
+            $data =['code' => 200,'status' => 'success','message' => 'Listado de videos.','total_items_count' => $total, 'page_actual'=> $page, 'items_per_page' => $items_per_page, 'total_pages'=> ceil($total / $items_per_page), 'videos' => $pagination, 'user_id' => $identity->sub];
+        }
 
-        //Conseguir identidad del usuario
-
-        //Configurar el bandle de paginacion
-
-        //Hacer una consulta para paginar
-
-        //Recoger el parametro page de la url
-
-        //Invocar paginacion
-
-        //Preparar array de datos para devolver
-        $data =['code' => 200,'status' => 'success','message' => 'Listado de videos.'];
+        
         return $this->resjson($data);
 
     }
