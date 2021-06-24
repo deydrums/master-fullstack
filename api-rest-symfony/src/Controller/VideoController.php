@@ -98,4 +98,27 @@ class VideoController extends AbstractController
         
         return $this->resjson($data);
     }
+
+    public function videos(Request $request, JwtAuth $jwt_auth){
+        //Recoger la cabecera de autenticacion
+
+        //Comprobar el token
+
+        //Si es valido 
+
+        //Conseguir identidad del usuario
+
+        //Configurar el bandle de paginacion
+
+        //Hacer una consulta para paginar
+
+        //Recoger el parametro page de la url
+
+        //Invocar paginacion
+
+        //Preparar array de datos para devolver
+        $data =['code' => 200,'status' => 'success','message' => 'Listado de videos.'];
+        return $this->resjson($data);
+
+    }
 }
