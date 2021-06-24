@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { routing, appRoutingProviders } from './app.routing';
 import { ErrorComponent } from './components/error/error.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { VideoNewComponent } from './components/video-new/video-new.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { ErrorComponent } from './components/error/error.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    ErrorComponent
+    ErrorComponent,
+    UserEditComponent,
+    VideoNewComponent
   ],
   imports: [
     BrowserModule,
