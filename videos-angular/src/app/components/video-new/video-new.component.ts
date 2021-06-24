@@ -4,13 +4,13 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { Video } from 'src/app/models/video';
 import { Router, ActivatedRoute, Params} from '@angular/router'; 
-
+import { VideoService } from 'src/app/services/video.service';
 
 @Component({
   selector: 'app-video-new',
   templateUrl: './video-new.component.html',
   styleUrls: ['./video-new.component.css'],
-  providers: [UserService]
+  providers: [UserService, VideoService]
 })
 export class VideoNewComponent implements OnInit {
   public page_title !: string;
@@ -24,7 +24,8 @@ export class VideoNewComponent implements OnInit {
   constructor(
     private _userService: UserService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _videoService: VideoService
   ) {
     this.page_title = "Crear nuevo video";
     this.identity = this._userService.getIdentity();
@@ -34,12 +35,26 @@ export class VideoNewComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(this.video);
   }
   
 
   onSubmit(form:any){
-    console.log(this.video);
+    this._videoService.create(this.video, this.token).subscribe(
+      response => {
+        if(response.status == 'success'){
+          this.message = response.message;
+          this.status = response.status;
+        }else{
+          this.message = response.message;
+          this.status = response.status;
+        }
+      },
+      error => {
+        console.log(<any>error);
+        this.message = 'Ha ocurrido un error, intenta de nuevo';
+        this.status = 'error';
+      }
+    )
   }
 
 }
