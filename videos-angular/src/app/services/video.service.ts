@@ -26,6 +26,7 @@ export class VideoService {
         let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
         return this._http.post(this.url+'video/new',params,{headers:headers});
     }
+    
     getVideos(token:any):Observable<any>{
         let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', token);
         return this._http.get(this.url+'video/list',{headers:headers});
