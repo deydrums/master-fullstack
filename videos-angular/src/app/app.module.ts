@@ -14,6 +14,7 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { VideoNewComponent } from './components/video-new/video-new.component';
 
 import { IdentityGuard } from './services/identity.guard';
+import { NoIdentityGuard } from './services/noidentity.guard';
 import { UserService } from './services/user.service';
 
 @NgModule({
@@ -35,7 +36,8 @@ import { UserService } from './services/user.service';
   providers: [
     appRoutingProviders,
     UserService,
-    IdentityGuard
+    IdentityGuard,
+    NoIdentityGuard
   ],
   bootstrap: [AppComponent]
 })

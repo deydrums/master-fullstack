@@ -9,13 +9,14 @@ import { VideoNewComponent } from './components/video-new/video-new.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 import { IdentityGuard } from './services/identity.guard';
+import { NoIdentityGuard } from './services/noidentity.guard';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'inicio', component: HomeComponent},
-    {path: 'login', component: LoginComponent},
+    {path: 'login', component: LoginComponent, canActivate:[NoIdentityGuard]},
     {path: 'logout/:sure', component: LoginComponent},
-    {path: 'register', component: RegisterComponent},
+    {path: 'register', component: RegisterComponent, canActivate:[NoIdentityGuard]},
     {path: 'ajustes', component: UserEditComponent, canActivate:[IdentityGuard]},
     {path: 'guardar-favorito', component: VideoNewComponent, canActivate:[IdentityGuard]},
     {path: '**', component: ErrorComponent}
