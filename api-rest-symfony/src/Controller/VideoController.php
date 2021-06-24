@@ -36,7 +36,66 @@ class VideoController extends AbstractController
     }
 
     public function create(Request $request, JwtAuth $jwt_auth){
-        $data =['code' => 200,'status' => 'success','message' => 'Video creado exitosamente.'];
+        //Recoger token
+        $token = $request->headers->get('Authorization',null);
+        //Comprobar si es correcto
+        $authCheck = $jwt_auth->checkToken($token);
+        if(!$authCheck){
+            $data =['code' => 400,'status' => 'error','message' => 'No estas autenticado.'];
+        }else{
+            //Recoger datos por post
+            $json = $request->get('json',null);
+            $params = json_decode($json);
+
+            //Recoger objeto del usuario
+            $identity = $jwt_auth->checkToken($token, true);
+
+            //Comprobar y validar datos
+            if(!empty($json)){
+                $user_id = ($identity ->sub !=null) ? $identity ->sub : null;
+                $title = (!empty($params->title)) ? $params -> title : null;
+                $description = (!empty($params->description)) ? $params -> description : null;
+                $url = (!empty($params->url)) ? $params -> url : null;
+
+                if(!empty($user_id) && !empty($title)){
+                    //Guardar nuevo video
+                    $em = $this->getDoctrine()->getManager();
+                    $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
+                        'id' => $user_id
+                    ]);
+                    //Crear y guardar objeto
+                    $video = new Video();
+                    $video->setUser($user);
+                    $video->setTitle($title);
+                    $video->setDescription($description);
+                    $video->setUrl($url);
+                    $video->setStatus('normal');
+                    $createAt = new \DateTime('now');
+                    $updateAt = new \DateTime('now');
+                    $video->setCreatedAt($createAt);
+                    $video->setUpdatedAt($updateAt);
+
+                    //Guardar en bbdd
+                    $em->persist($video);
+                    $em->flush();
+                    $data =['code' => 200,'status' => 'success','message' => 'Video creado exitosamente.', $video];
+
+                }else{
+                    $data =['code' => 400,'status' => 'error','message' => 'Faltan datos.'];
+
+                }
+
+
+            }else{
+                $data =['code' => 400,'status' => 'error','message' => 'No has enviado datos.'];
+
+            }
+
+        }
+
+
+        //Respuesta
+        
         return $this->resjson($data);
     }
 }
