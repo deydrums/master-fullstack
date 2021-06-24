@@ -161,21 +161,27 @@ class UserController extends AbstractController
             //Actualizar usuario
 
             //Conseguir entity manager
-
+            $em = $this->getDoctrine()->getManager();
             //Conseguir los datos del usuario identificado
-
+            $identity = $jwt_auth->checkToken($token, true);
             //Conseguir el usuario a actualizar completo
-
+            $user_repo = $this->getDoctrine()->getRepository(User::class);
+            $user = $user_repo -> findOneBy([
+                'id' => $identity->sub
+            ]);
             //Recoger datos por post
-
+            $json = $request->get('json',null);
+            $params = json_decode($json);
             //Comprobar y validar los datos
+            if(!empty($json)){
 
+            }
             //Asignar nuevos datos al objeto del usuario
 
             //Comprobar duplicados
 
             //Guardar datos en la bbdd
-            $data =['code' => '200','status' => 'success','message' => 'Datos actualizados exitosamente.',$authCheck];
+            $data =['code' => '200','status' => 'success','message' => 'Datos actualizados exitosamente.',$user];
 
         }
 
