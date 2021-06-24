@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
   public user: User;
   public status!: string;
   public message!: string;
-  public token!: string;
-  public identity!: string;
+  public token!: any;
+  public identity!: any;
   constructor(
     private _userService: UserService,
     private _router: Router,
@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.logout();
   }
 
   onSubmit(form: any): void {
@@ -72,6 +73,18 @@ export class LoginComponent implements OnInit {
       }
     )
 
+  }
+  logout() {
+    this._route.params.subscribe(params => {
+      let sure = +params['sure'];
+      if(sure == 1 ){
+        localStorage.removeItem('identity');
+        localStorage.removeItem('token');
+        this.identity = null;
+        this.token = null;
+        this._router.navigate(['/inicio']);
+      }
+    });
   }
 
 }
