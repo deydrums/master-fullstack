@@ -12,6 +12,8 @@ import { UserService } from 'src/app/services/user.service';
 export class RegisterComponent implements OnInit {
   public page_title: string;
   public user: User;
+  public status!: string;
+  public message!: string;
   constructor(
     private _userService: UserService
   ) {
@@ -20,10 +22,24 @@ export class RegisterComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    console.log(this._userService.test());
   }
 
   onSubmit(form: Form): void {
-    console.log(this.user);
+    this._userService.register(this.user).subscribe(
+      response => {
+        if(response.status == 'success' && response.user){
+          this.message = response.message;
+          this.status = response.status;
+        }else{
+          this.message = response.message;
+          this.status = response.status;
+        }
+      },
+      error => {
+        console.log(<any>error);
+        this.message = 'Ha ocurrido un error, intenta de nuevo.';
+        this.status = 'error';
+      }
+    )
   }
 }

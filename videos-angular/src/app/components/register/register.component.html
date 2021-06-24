@@ -4,6 +4,12 @@
         <p class="page-section-heading text-center text-dark">Registrate para crear videos favoritos.</p>
     </div>
 
+    <div class="alert alert-success col-md-5 m-auto" *ngIf="status === 'success'">
+        {{message}} <a [routerLink]="['/login']">Logueate aqui</a>
+    </div>
+    <div class="alert alert-danger col-md-5 m-auto" *ngIf="status === 'error'">
+        {{message}}
+    </div>
 
 
 
