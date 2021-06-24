@@ -108,7 +108,7 @@ class VideoController extends AbstractController
         $authCheck = $jwt_auth->checkToken($token);
         //Si es valido 
         if(!$authCheck){
-            $data =['code' => 400,'error' => 'success','message' => 'No estas autenticado.'];
+            $data =['code' => 400,'status' => 'error','message' => 'No estas autenticado.'];
         }else{
             //Conseguir identidad del usuario
             $identity = $jwt_auth->checkToken($token, true);
@@ -133,15 +133,29 @@ class VideoController extends AbstractController
 
     public function video(Request $request, JwtAuth $jwt_auth, $id = null){
         //Sacar el token y comprobarla
+        $token = $request->headers->get('Authorization');
+        $authCheck = $jwt_auth->checkToken($token);
+        if(!$authCheck){
+            $data =['code' => 400,'status' => 'error','message' => 'No estas autenticado.'];
+        }else{
+            //Sacar identitidad del usuario
+            $identity = $jwt_auth->checkToken($token, true);
+            //Sacar objeto del video
+            $video = $this->getDoctrine()->getRepository(Video::class)->findOneBy([
+                'id' => $id,
+                'user' => $identity->sub
+            ]);
+            //Comprobar si el video existe y es propiedad del usuario autenticado
+            if(!$video || !is_object($video)){
+                $data =['code' => 404,'status' => 'error','message' => 'El video no existe o no es tuyo.'];
+            }else{
+                //Devolver respuesta
+                $data =['code' => 200,'status' => 'success','message' => 'Video.', 'video' => $video];
+            }
 
-        //Sacar identitidad del usuario
 
-        //Sacar objeto del video
+        }
 
-        //Comprobar si el video existe y es propiedad del usuario autenticado
-
-        //Devolver respuesta
-        $data =['code' => 200,'status' => 'success','message' => 'Video.'];
         return $this->resjson($data);
     }
 }
