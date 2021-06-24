@@ -37,7 +37,7 @@ class VideoController extends AbstractController
         ]);
     }
 
-    public function create(Request $request, JwtAuth $jwt_auth){
+    public function create(Request $request, JwtAuth $jwt_auth, $id = null){
         //Recoger token
         $token = $request->headers->get('Authorization',null);
         //Comprobar si es correcto
@@ -65,23 +65,43 @@ class VideoController extends AbstractController
                     $user = $this->getDoctrine()->getRepository(User::class)->findOneBy([
                         'id' => $user_id
                     ]);
-                    //Crear y guardar objeto
-                    $video = new Video();
-                    $video->setUser($user);
-                    $video->setTitle($title);
-                    $video->setDescription($description);
-                    $video->setUrl($url);
-                    $video->setStatus('normal');
-                    $createAt = new \DateTime('now');
-                    $updateAt = new \DateTime('now');
-                    $video->setCreatedAt($createAt);
-                    $video->setUpdatedAt($updateAt);
+                    if($id == null){
+                        //Crear y guardar objeto
+                        $video = new Video();
+                        $video->setUser($user);
+                        $video->setTitle($title);
+                        $video->setDescription($description);
+                        $video->setUrl($url);
+                        $video->setStatus('normal');
+                        $createAt = new \DateTime('now');
+                        $updateAt = new \DateTime('now');
+                        $video->setCreatedAt($createAt);
+                        $video->setUpdatedAt($updateAt);
 
-                    //Guardar en bbdd
-                    $em->persist($video);
-                    $em->flush();
-                    $data =['code' => 200,'status' => 'success','message' => 'Video creado exitosamente.', $video];
+                        //Guardar en bbdd
+                        $em->persist($video);
+                        $em->flush();
+                        $data =['code' => 200,'status' => 'success','message' => 'Video creado exitosamente.', $video];
+                    }else{
+                        $video = $this->getDoctrine()->getRepository(Video::class)->findOneBy([
+                            'id' => $id,
+                            'user' => $identity->sub
+                        ]);
+                        //Comprobar si el video existe y es propiedad del usuario autenticado
+                        if(!$video || !is_object($video)){
+                            $data =['code' => 404,'status' => 'error','message' => 'El video no existe o no es tuyo.'];
+                        }else{
+                            $video->setTitle($title);
+                            $video->setDescription($description);
+                            $video->setUrl($url);
+                            $updateAt = new \DateTime('now');
+                            $video->setUpdatedAt($updateAt);
+                            $em ->persist($video);
+                            $em ->flush();
+                            $data =['code' => 200,'status' => 'success','message' => 'Video actualizado exitosamente.', $video];
 
+                        }
+                    }
                 }else{
                     $data =['code' => 400,'status' => 'error','message' => 'Faltan datos.'];
 

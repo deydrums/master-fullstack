@@ -49,3 +49,8 @@ video-remove:
    path: /video/remove/{id}
    controller: App\Controller\VideoController::remove
    methods: [DELETE]
+
+vide_edit:
+   path: /video/edit/{id}
+   controller: App\Controller\VideoController::create
+   methods: [PUT]
