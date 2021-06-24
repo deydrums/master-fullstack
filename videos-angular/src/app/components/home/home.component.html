@@ -1,6 +1,15 @@
-<section class="page-section text-dark mb-0 mt-5" id="about">
+<section class="page-section text-dark mb-0 mt-5" id="about" *ngIf = "identity && identity.name">
     <div class="container">
         <h2 class="page-section-heading text-center text-uppercase text-dark">{{page_title}}</h2>
     </div>
 </section>
-     
+    
+<section class="mt-5" *ngIf = "identity && !identity.name">
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Bienvenido a VideosAngular!</h1>
+        <p class="lead">Registrate en la web para guardar tus videos favoritos de YouTube y poder verlos cuando quieras.</p>
+        <hr class="my-4">
+        <a class="btn btn-primary btn-lg m-1" [routerLink]="['/register']" role="button">Registrarse</a>
+        <a class="btn btn-primary btn-lg m-1" [routerLink]="['/login']" role="button">Iniciar sesión</a>
+      </div>
+</section>

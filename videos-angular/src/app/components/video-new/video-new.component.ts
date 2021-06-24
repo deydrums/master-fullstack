@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./video-new.component.css']
 })
 export class VideoNewComponent implements OnInit {
-
-  constructor() { }
+  public page_title !: string;
+  constructor() {
+    this.page_title = "Crear nuevo video";
+   }
 
   ngOnInit(): void {
   }
