@@ -1,0 +1,15 @@
+<section class="page-section text-dark mb-0 mt-5" id="about" *ngIf="!video">
+    <div class="container">
+        <h2 class="page-section-heading text-center  text-dark">Cargando...</h2>
+    </div>
+</section>
+
+<section class="page-section text-dark mb-0 mt-5" id="about" *ngIf="video">
+    <div class="container">
+        <h2 class="page-section-heading text-center text-dark">{{video.title}} </h2>
+        <div class = "text-center">
+            <span class="badge bg-primary align-center">{{user.name + ' ' + user.surname}}</span>
+        </div>
+        <p class="page-section-heading text-center text-dark m-3"[innerHtml] = "video.description"></p>
+    </div>
+</section>

@@ -16,7 +16,7 @@
                 </div>
                 <!--Botones-->
                 <div class="video-buttons mt-3">
-                    <a href="#" class="btn btn-sm btn-success m-1">Leer</a>
+                    <a [routerLink]="['/video/',video.id]" class="btn btn-sm btn-success m-1">Ver</a>
                     <a [routerLink]="['/video/edit/',video.id]" class="btn btn-sm btn-success m-1">Editar</a>
 
                 <!-- Button trigger modal -->
