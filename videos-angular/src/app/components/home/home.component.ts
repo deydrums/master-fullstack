@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit, DoCheck {
       response =>{
         if(response.status == 'success'){
           this.videos = response.videos;
-          console.log(this.videos);
+          //console.log(this.videos);
         }else{
           console.log(response.message);
         }
@@ -48,5 +48,20 @@ export class HomeComponent implements OnInit, DoCheck {
         console.log(error);
       }
     );
+  }
+
+  removeVideo(id:any){
+    this._videoService.delete(this.token,id).subscribe(
+      response =>{
+        if(response.status == 'success'){
+          this.getVideos();
+        }else{
+          console.log(response.error);
+        }
+      },
+      error =>{
+        console.log(error);
+      }
+    )
   }
 }

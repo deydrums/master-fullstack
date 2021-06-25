@@ -16,7 +16,7 @@
                 <div class="video-buttons mt-3">
                     <a href="#" class="btn btn-sm btn-success m-1">Leer</a>
                     <a [routerLink]="['/video/edit/',video.id]" class="btn btn-sm btn-success m-1">Editar</a>
-                    <a href="#" class="btn btn-sm btn-success m-1">Borrar</a>
+                    <a (click)="removeVideo(video.id)" class="btn btn-sm btn-success m-1">Borrar</a>
                 </div>
             </div>
         </article>
