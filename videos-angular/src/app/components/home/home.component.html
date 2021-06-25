@@ -11,7 +11,9 @@
             </div>
             <div class="card-body">
                 <!--Imagen-->
-
+                <div class="video-image w-100" *ngIf="video.url">
+                    <img src="{{getThumb(video.url, 'maxresdefault')}}" class="w-100">
+                </div>
                 <!--Botones-->
                 <div class="video-buttons mt-3">
                     <a href="#" class="btn btn-sm btn-success m-1">Leer</a>

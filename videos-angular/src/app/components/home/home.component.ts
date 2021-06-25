@@ -50,6 +50,27 @@ export class HomeComponent implements OnInit, DoCheck {
     );
   }
 
+   getThumb(url:any, size:any = null) {
+        var video, results, thumburl;
+        
+        if (url === null) {
+            return '';
+        }
+        
+        results = url.match('[\\?&]v=([^&#]*)');
+        video   = (results === null) ? url : results[1];
+        
+        if(size != null) {
+            thumburl = 'http://img.youtube.com/vi/' + video + '/'+ size +'.jpg';
+        }else{
+            thumburl = 'http://img.youtube.com/vi/' + video + '/mqdefault.jpg';
+        }
+        
+          return thumburl;
+        
+    }
+
+    
   removeVideo(id:any){
     this._videoService.delete(this.token,id).subscribe(
       response =>{
