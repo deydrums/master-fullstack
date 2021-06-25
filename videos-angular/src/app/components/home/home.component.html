@@ -18,7 +18,35 @@
                 <div class="video-buttons mt-3">
                     <a href="#" class="btn btn-sm btn-success m-1">Leer</a>
                     <a [routerLink]="['/video/edit/',video.id]" class="btn btn-sm btn-success m-1">Editar</a>
-                    <a (click)="removeVideo(video.id)" class="btn btn-sm btn-success m-1">Borrar</a>
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-sm btn-dark m-1" data-bs-toggle="modal"
+                    [attr.data-bs-target]="'#myModal'+video.id">
+                    Borrar
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="{{'myModal'+video.id}}" tabindex="-1" aria-labelledby="myModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Eliminar video</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        ¿Estas completamente seguro de eliminar este video? {{video.title}}
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" (click)="removeVideo(video.id)" data-bs-dismiss="modal">Borrar</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+
+
                 </div>
             </div>
         </article>
