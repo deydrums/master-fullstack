@@ -1,9 +1,9 @@
-<section class="page-section text-dark mb-0 mt-5" id="about" *ngIf = "identity && identity.name">
+<section class="page-section text-dark mb-0 mt-5 container" id="about" *ngIf = "identity && identity.name">
     <div class="container">
         <h2 class="page-section-heading text-center text-uppercase text-dark">{{page_title}}</h2>
     </div>
-    <div class="card-columns">
-        <article class="card w-100" *ngFor="let video of videos">
+    <div class="card-columns mt-5">
+        <article class="card w-100 mb-5" *ngFor="let video of videos">
             <div class="card-header">
                 <h3>
                     {{video.title}}
@@ -23,6 +23,23 @@
             </div>
         </article>
     </div>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+          </li>
+
+          <li class="page-item" *ngFor = 'let num of number_pages'>
+              <a class="page-link" [routerLink] = "['/inicio/',num]">{{num}}</a>
+            </li>
+
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+
 
 </section>
     

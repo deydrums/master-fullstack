@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit, DoCheck {
     private _router: Router,
     private _route: ActivatedRoute
   ) { 
-    this.page_title = "Inicio";
+    this.page_title = "Mis videos";
     this.token = this._userService.getToken();
   }
 
@@ -54,7 +54,17 @@ export class HomeComponent implements OnInit, DoCheck {
       response =>{
         if(response.status == 'success'){
           this.videos = response.videos;
-          //console.log(this.videos);
+          var number_pages = [];
+          for(var i = 1; i <= response.total_pages; i++){
+            number_pages.push(i);
+          }
+          this.number_pages = number_pages;
+
+          // items_per_page: 5
+          // page_actual: 2
+          // total_items_count: 6
+          // total_pages: 2
+          //console.log(response);
         }else{
           console.log(response.message);
         }
