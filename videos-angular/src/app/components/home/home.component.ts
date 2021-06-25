@@ -1,7 +1,7 @@
 import { Component, OnInit, DoCheck} from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { VideoService } from 'src/app/services/video.service';
-
+import { Router, ActivatedRoute, Params } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,16 +13,31 @@ export class HomeComponent implements OnInit, DoCheck {
   public identity!:any;
   public token!:any;
   public videos: any;
+  public page!: any;
+  public next_page!: any;
+  public prev_page!: any;
+  public number_pages!: any
   constructor(
     private _userService: UserService,
-    private _videoService: VideoService
+    private _videoService: VideoService,
+    private _router: Router,
+    private _route: ActivatedRoute
   ) { 
     this.page_title = "Inicio";
     this.token = this._userService.getToken();
   }
 
   ngOnInit(): void {
-    this.getVideos();
+    this._route.params.subscribe(params =>{
+      var page = +params['page'];
+      if(!page) {
+        page = 1;
+        this.prev_page = 1;
+        this.next_page = 2;
+      }
+      this.getVideos(page);
+    });
+    
   }
 
   ngDoCheck(){
@@ -34,8 +49,8 @@ export class HomeComponent implements OnInit, DoCheck {
     this.token = this._userService.getToken();
   }
 
-  getVideos(){
-    this._videoService.getVideos(this.token).subscribe(
+  getVideos(page:any){
+    this._videoService.getVideos(this.token, page).subscribe(
       response =>{
         if(response.status == 'success'){
           this.videos = response.videos;
@@ -75,7 +90,7 @@ export class HomeComponent implements OnInit, DoCheck {
     this._videoService.delete(this.token,id).subscribe(
       response =>{
         if(response.status == 'success'){
-          this.getVideos();
+          this.getVideos(1);
         }else{
           console.log(response.error);
         }

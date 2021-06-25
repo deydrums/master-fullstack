@@ -14,6 +14,7 @@ import { NoIdentityGuard } from './services/noidentity.guard';
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'inicio', component: HomeComponent},
+    {path: 'inicio/:page', component: HomeComponent},
     {path: 'login', component: LoginComponent, canActivate:[NoIdentityGuard]},
     {path: 'logout/:sure', component: LoginComponent},
     {path: 'register', component: RegisterComponent, canActivate:[NoIdentityGuard]},
