@@ -4,12 +4,40 @@
     </div>
 </section>
 
-<section class="page-section text-dark mb-0 mt-5" id="about" *ngIf="video">
+<section class="page-section text-dark mb-0 mt-5 container" id="about" *ngIf="video">
     <div class="container">
         <h2 class="page-section-heading text-center text-dark">{{video.title}} </h2>
         <div class = "text-center">
             <span class="badge bg-primary align-center">{{user.name + ' ' + user.surname}}</span>
         </div>
         <p class="page-section-heading text-center text-dark m-3"[innerHtml] = "video.description"></p>
+   
+
+            
+
+
+            
+   
     </div>
+
+
+
+
+    <div class="card-columns mt-5">
+        <article class="card w-100 mb-5" >
+            <div class="card-header">
+                <h3>
+                    {{video.title}}
+                </h3>
+            </div>
+            <div class="card-body w-100 carta">
+                <iframe class="video" [src]="getVideoIframe(video.url)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+        </article>
+    </div>
+
+
+        
+
 </section>

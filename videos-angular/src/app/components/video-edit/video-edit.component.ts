@@ -6,6 +6,8 @@ import { Video } from 'src/app/models/video';
 import { Router, ActivatedRoute, Params} from '@angular/router'; 
 import { VideoService } from 'src/app/services/video.service';
 
+
+
 @Component({
   selector: 'app-video-edit',
   //templateUrl: './video-edit.component.html',
@@ -27,6 +29,7 @@ export class VideoEditComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _videoService: VideoService
+
   ) {
     this.page_title = "Editar video";
     this.identity = this._userService.getIdentity();
@@ -79,5 +82,7 @@ export class VideoEditComponent implements OnInit {
     });
 
   }
+
+
 
 }

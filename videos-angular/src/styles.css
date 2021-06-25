@@ -1,1 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+.video{
+    height:100%;
+    height: 720px;
+}
+
+
+iframe{
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 1300px) {
+    .video{
+        height: 600px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .video{
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 995px) {
+    .video{
+        height: 350px;
+    }
+}
+
+@media screen and (max-width: 770px) {
+    .video{
+        height: 250px;
+    }
+}
+
+
+@media screen and (max-width: 490px) {
+    .video{
+        height: 200px;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    .video{
+        height: 150px;
+    }
+}
