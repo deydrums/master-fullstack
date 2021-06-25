@@ -40,11 +40,27 @@ export class VideoEditComponent implements OnInit {
   }
 
   onSubmit(form: any){
-    console.log(this.video);
+    this._videoService.update(this.token, this.video, this.video.id).subscribe(
+      response => {
+        if(response.status == 'success'){
+          this.message = response.message;
+          this.status = response.status;
+          this.video = response.video;
+        }else{
+          this.message = response.message;
+          this.status = response.status;
+        }
+
+      },
+      error => {
+        console.log(error);
+        this.message = 'Ha ocurrido un error, intenta de nuevo.';
+        this.status = 'error';
+      }
+    )
   }
 
   getVideo(){
-
     this._route.params.subscribe(params =>{
       var id = params['id'];
    
@@ -52,7 +68,6 @@ export class VideoEditComponent implements OnInit {
         response => {
           if(response.status == 'success'){
             this.video = response.video;
-            console.log(this.video);
           }else{
             console.log(response.message);
           }
